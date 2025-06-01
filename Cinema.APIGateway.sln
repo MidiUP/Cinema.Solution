@@ -8,10 +8,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7398C1A1-00E0-4539-8D47-2BA50099C143}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.APIGateway.API", "src\Cinema.APIGateway.API\Cinema.APIGateway.API.csproj", "{4F607106-24A2-4118-B33C-7602EE0A30AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{567C242E-0E34-40FA-86AB-86C6C7877E0B} = {567C242E-0E34-40FA-86AB-86C6C7877E0B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.APIGateway.Domain", "src\Cinema.APIGateway.Domain\Cinema.APIGateway.Domain.csproj", "{567C242E-0E34-40FA-86AB-86C6C7877E0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.APIGateway.Infrastructure", "src\Cinema.APIGateway.Infrastructure\Cinema.APIGateway.Infrastructure.csproj", "{3F47BB17-B008-4F14-B048-81B7F97CCB2D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{567C242E-0E34-40FA-86AB-86C6C7877E0B} = {567C242E-0E34-40FA-86AB-86C6C7877E0B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
