@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Repositories\EcommerceTicket\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cinema.APIGateway.Domain\Cinema.APIGateway.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
