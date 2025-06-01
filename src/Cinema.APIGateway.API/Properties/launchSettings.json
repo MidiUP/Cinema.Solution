@@ -16,7 +16,13 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5184",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+
+        "RABBIMQ_HOST": "localhost",
+        "RABBIMQ_PORT": "5672",
+        "RABBIMQ_USERNAME": "CinemaAPIGateway",
+        "RABBIMQ_PASSWORD": "passwordAPIGateway",
+        "QUEUE_CREATE_ECOMMERCE_TICKET_NAME": "cinema-ecommerce-criacao-ticket"
       }
     },
     "IIS Express": {

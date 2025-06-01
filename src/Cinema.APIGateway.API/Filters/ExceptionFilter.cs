@@ -17,7 +17,7 @@ public class ExceptionFilter : IExceptionFilter
         else
             HandleUnknownException(context);
     }
-    private void HandleCinemaApiGatewayException(ExceptionContext context)
+    private static void HandleCinemaApiGatewayException(ExceptionContext context)
     {
         switch (context.Exception)
         {
@@ -25,10 +25,9 @@ public class ExceptionFilter : IExceptionFilter
                 HandleValidationException(context);
                 break;
         }
-
     }
 
-    private void HandleResultException(ExceptionContext context, int statusCode)
+    private static void HandleResultException(ExceptionContext context, int statusCode)
     {
         var exception = context.Exception;
 
@@ -40,12 +39,12 @@ public class ExceptionFilter : IExceptionFilter
         context.HttpContext.Response.StatusCode = statusCode;
     }
 
-    private void HandleValidationException(ExceptionContext context)
+    private static void HandleValidationException(ExceptionContext context)
     {
         HandleResultException(context, (int)HttpStatusCode.BadRequest);
     }
 
-    private void HandleUnknownException(ExceptionContext context)
+    private static void HandleUnknownException(ExceptionContext context)
     {
         HandleResultException(context, (int)HttpStatusCode.InternalServerError);
     }
