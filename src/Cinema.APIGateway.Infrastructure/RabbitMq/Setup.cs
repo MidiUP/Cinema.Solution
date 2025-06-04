@@ -3,6 +3,8 @@ using MassTransit;
 using Cinema.APIGateway.Domain.Shared;
 using Cinema.APIGateway.Infrastructure.RabbitMq.Config;
 using Cinema.APIGateway.Domain.Services.Catalog.Interfaces;
+using Cinema.APIGateway.Domain.Infrastructure;
+using Cinema.APIGateway.Domain.Events.EcommerceTicket;
 
 namespace Cinema.APIGateway.Infrastructure.RabbitMq;
 
@@ -22,7 +24,7 @@ public static class Setup
 
             x.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host(HOST_RABBIMQ, RABBIMQ_PORT, h =>
+                cfg.Host(HOST_RABBIMQ, "/", h =>
                 {
                     h.Username(HOST_RABBIMQ_USERNAME);
                     h.Password(HOST_RABBIMQ_PASSWORD);
@@ -31,7 +33,7 @@ public static class Setup
         });
 
         // Configura o producer para a fila desejada
-        services.AddProducer<Domain.Events.Event>(QUEUE_CREATE_ECOMMERCE_TICKET_NAME);
+        services.AddProducer<EcommerceCreateTicketEvent>(QUEUE_CREATE_ECOMMERCE_TICKET_NAME);
     }
 
     private static void AddProducer<T>(this IServiceCollection services, string queue) where T : Domain.Events.Event

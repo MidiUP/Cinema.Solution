@@ -1,9 +1,9 @@
 ﻿using Cinema.APIGateway.Domain.Events;
 
-namespace Cinema.APIGateway.Infrastructure.RabbitMq.Config;
+namespace Cinema.APIGateway.Domain.Infrastructure;
 
 public interface ITopicProducer<T> where T : Event
 {
-    public Task Produce(T message);
+    public Task ProduceAsync(T message);
 }
  

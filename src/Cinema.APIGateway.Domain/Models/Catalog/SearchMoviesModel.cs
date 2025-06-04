@@ -2,8 +2,10 @@
 
 namespace Cinema.APIGateway.Domain.Models.Catalog;
 
-public class SearchMoviesModel
+public class SearchMoviesModel : IModelValidator
 {
+    const string MESSAGE_VALIDATION_ERROR = "O termo de pesquisa não pode ser nulo ou vazio.";
+
     public required string TermSearch { get; set; }
     public int PremiereYear { get; set; }
 
@@ -12,7 +14,7 @@ public class SearchMoviesModel
         var result = new ValidationResult();
 
         if (string.IsNullOrWhiteSpace(TermSearch))
-            result.AddError("O termo de pesquisa não pode ser nulo ou vazio");
+            result.AddError(MESSAGE_VALIDATION_ERROR);
 
         return result;
     }

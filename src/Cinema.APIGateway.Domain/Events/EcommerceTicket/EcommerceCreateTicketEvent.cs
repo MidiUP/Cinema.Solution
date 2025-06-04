@@ -1,12 +1,12 @@
-﻿namespace Cinema.APIGateway.Domain.Dtos.Requests.EcommerceTicket;
+﻿namespace Cinema.APIGateway.Domain.Events.EcommerceTicket;
 
-public class CreateCheckInRequestDto
+public class EcommerceCreateTicketEvent : Event
 {
     /// <summary>
     /// Identificador do filme.
     /// </summary>
     public int MovieId { get; set; }
-    
+
     /// <summary>
     /// Identificador do cliente.
     /// </summary>

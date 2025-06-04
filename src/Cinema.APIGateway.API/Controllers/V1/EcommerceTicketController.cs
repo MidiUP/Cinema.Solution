@@ -1,7 +1,8 @@
 ﻿using Cinema.APIGateway.Domain.Dtos.Requests.EcommerceTicket;
 using Cinema.APIGateway.Domain.Dtos.Responses;
-using Cinema.APIGateway.Domain.Exceptions;
+using Cinema.APIGateway.Domain.Events.EcommerceTicket;
 using Cinema.APIGateway.Domain.Models.Catalog;
+using Cinema.APIGateway.Domain.Models.EcommerceTicket;
 using Cinema.APIGateway.Domain.Services.EcommerceTicket.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,11 +18,13 @@ public class EcommerceTicketController(IEcommerceTicketService ecommerceTicketSe
     [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> CheckInTicketAsync([FromBody] CreateCheckInRequestDto createCheckInRequest)
     {
-        await _ecommerceTicketService.AddQueueCheckInMovieAsync(createCheckInRequest.MovieId);
-        var resposta = new ObjectResult(null)
+        var checkInModel = new CheckInModel
         {
-            StatusCode = 202
+            MovieId = createCheckInRequest.MovieId,
+            CustomerId = createCheckInRequest.CustomerId
         };
-        return resposta;
+
+        await _ecommerceTicketService.AddQueueCheckInMovieAsync(checkInModel);
+        return Accepted();
     }
 }
