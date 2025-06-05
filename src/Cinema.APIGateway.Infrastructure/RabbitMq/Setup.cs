@@ -11,7 +11,6 @@ namespace Cinema.APIGateway.Infrastructure.RabbitMq;
 public static class Setup
 {
     private static readonly string HOST_RABBIMQ = Constants.RabbitMq.RABBIMQ_HOST;
-    private static readonly string RABBIMQ_PORT = Constants.RabbitMq.RABBIMQ_PORT;
     private static readonly string HOST_RABBIMQ_USERNAME = Constants.RabbitMq.RABBIMQ_USERNAME;
     private static readonly string HOST_RABBIMQ_PASSWORD = Constants.RabbitMq.RABBIMQ_PASSWORD;
 

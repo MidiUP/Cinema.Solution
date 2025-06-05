@@ -1,7 +1,7 @@
 ﻿using Cinema.APIGateway.Domain.Events.EcommerceTicket;
 using Cinema.APIGateway.Domain.Exceptions;
 using Cinema.APIGateway.Domain.Infrastructure;
-using Cinema.APIGateway.Domain.Models.Catalog;
+using Cinema.APIGateway.Domain.Mappers.EcommerceTicket;
 using Cinema.APIGateway.Domain.Models.EcommerceTicket;
 using Cinema.APIGateway.Domain.Services.EcommerceTicket.Interfaces;
 
@@ -16,11 +16,7 @@ public class EcommerceTicketService(ITopicProducer<EcommerceCreateTicketEvent> t
         if (!validationCheckInModel.IsValid)
             throw new ValidationException(validationCheckInModel.Errors);
 
-        var ecommerceCreateTicketEvent = new EcommerceCreateTicketEvent
-        {
-            MovieId = checkInModel.MovieId,
-            CustomerId = checkInModel.CustomerId
-        };
+        var ecommerceCreateTicketEvent = checkInModel.MapToEcommerceCreateTicketEvent();
 
         await _topicProducer.ProduceAsync(ecommerceCreateTicketEvent);
     }
