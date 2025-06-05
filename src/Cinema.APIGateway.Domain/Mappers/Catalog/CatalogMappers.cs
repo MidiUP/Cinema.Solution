@@ -3,7 +3,7 @@ using Cinema.APIGateway.Domain.Models.Catalog;
 
 namespace Cinema.APIGateway.Domain.Mappers.Catalog;
 
-public static class GetMoviesRequestDtoToSearchMoviesModel
+public static class CatalogMappers
 {
     public static SearchMoviesModel MapToSearchMoviesModel(this GetMoviesRequestDto request)
     {
