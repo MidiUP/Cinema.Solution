@@ -1,6 +1,7 @@
 using Cinema.APIGateway.API.Filters;
 using Cinema.APIGateway.Domain;
 using Cinema.APIGateway.Infrastructure;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,8 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health", new HealthCheckOptions());
 
 if (app.Environment.IsDevelopment())
 {

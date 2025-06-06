@@ -5,6 +5,7 @@ using Cinema.APIGateway.Infrastructure.RabbitMq.Config;
 using Cinema.APIGateway.Domain.Services.Catalog.Interfaces;
 using Cinema.APIGateway.Domain.Infrastructure;
 using Cinema.APIGateway.Domain.Events.EcommerceTicket;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Cinema.APIGateway.Infrastructure.RabbitMq;
 
@@ -20,6 +21,12 @@ public static class Setup
     {
         services.AddMassTransit(x =>
         {
+            x.ConfigureHealthCheckOptions(options =>
+            {
+                options.Name = "masstransit";
+                options.MinimalFailureStatus = HealthStatus.Unhealthy;
+                options.Tags.Add("health");
+            });
 
             x.UsingRabbitMq((context, cfg) =>
             {
