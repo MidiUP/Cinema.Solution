@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers(options =>
 {
@@ -25,6 +24,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDomainServices();
 builder.Services.AddInfrastructureServices();
 
+
 var app = builder.Build();
 
 app.UseAuthorization();
@@ -35,6 +35,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    builder.Logging.AddConsole();
 }
 
 app.Run();

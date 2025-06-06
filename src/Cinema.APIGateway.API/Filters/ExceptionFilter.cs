@@ -12,19 +12,10 @@ public class ExceptionFilter : IExceptionFilter
 
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is CinemaAPIGatewayException)
-            HandleCinemaApiGatewayException(context);
+        if (context.Exception is CinemaAPIGatewayException exception)
+            HandleResultException(context, exception.ERROR_CODE);
         else
             HandleUnknownException(context);
-    }
-    private static void HandleCinemaApiGatewayException(ExceptionContext context)
-    {
-        switch (context.Exception)
-        {
-            case ValidationException:
-                HandleValidationException(context);
-                break;
-        }
     }
 
     private static void HandleResultException(ExceptionContext context, int statusCode)
@@ -37,11 +28,6 @@ public class ExceptionFilter : IExceptionFilter
             context.Result = new ObjectResult(new ErrorResponseDto(SERVER_ERROR_MESSAGE));
             
         context.HttpContext.Response.StatusCode = statusCode;
-    }
-
-    private static void HandleValidationException(ExceptionContext context)
-    {
-        HandleResultException(context, (int)HttpStatusCode.BadRequest);
     }
 
     private static void HandleUnknownException(ExceptionContext context)

@@ -15,9 +15,9 @@ public class TopicProducer<T> : ITopicProducer<T> where T : Domain.Events.Event
         _sendEndpointProvider = sendEndpointProvider;
     }
 
-    public async Task ProduceAsync(T message)
+    public async Task ProduceAsync(T message, CancellationToken cancellationToken)
     {
         var endpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{_topicName}"));
-        await endpoint.Send(message);
+        await endpoint.Send(message, cancellationToken);
     }
 }
