@@ -1,6 +1,6 @@
 ﻿namespace Cinema.APIGateway.Domain.Dtos.Responses
 {
-    public class ErrorResponseDto
+    public record ErrorResponseDto
     {
         public List<string>? Errors { get; set; }
         public string? Message { get; set; }

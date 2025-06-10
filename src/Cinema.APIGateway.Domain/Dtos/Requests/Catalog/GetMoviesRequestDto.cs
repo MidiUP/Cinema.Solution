@@ -2,7 +2,7 @@
 
 namespace Cinema.APIGateway.Domain.Dtos.Requests.Catalog;
 
-public class GetMoviesRequestDto
+public record GetMoviesRequestDto
 {
     [JsonPropertyName("termoPesquisa")]
     public required string TermSearch { get; set; }

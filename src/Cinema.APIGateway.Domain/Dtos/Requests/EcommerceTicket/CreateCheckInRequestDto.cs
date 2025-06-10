@@ -1,6 +1,6 @@
 ﻿namespace Cinema.APIGateway.Domain.Dtos.Requests.EcommerceTicket;
 
-public class CreateCheckInRequestDto
+public record CreateCheckInRequestDto
 {
     /// <summary>
     /// Identificador do filme.

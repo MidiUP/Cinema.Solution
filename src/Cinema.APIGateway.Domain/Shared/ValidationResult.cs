@@ -18,10 +18,7 @@ public class ValidationResult
     /// </summary>
     public List<string> Errors { get; private set; } = new List<string>();
 
-    public ValidationResult()
-    {
-        
-    }
+    public ValidationResult() { }
 
     public ValidationResult(string error)
     {
