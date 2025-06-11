@@ -1,4 +1,6 @@
 using Cinema.EcommerceTicket.API.Filters;
+using Cinema.EcommerceTicket.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,8 @@ builder.Services.AddApiVersioning(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddInfrastructureServices();
 
 var app = builder.Build();
 

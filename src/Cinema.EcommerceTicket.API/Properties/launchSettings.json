@@ -9,14 +9,23 @@
     }
   },
   "profiles": {
-    "http": {
+    "Cinema.EcommerceTicket": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5045",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "RABBIMQ_HOST": "localhost",
+        "RABBIMQ_PORT": "5672",
+        "RABBIMQ_USERNAME": "CinemaAPIGateway",
+        "RABBIMQ_PASSWORD": "passwordAPIGateway",
+        "QUEUE_CREATE_ECOMMERCE_TICKET_NAME": "cinema-ecommerce-criacao-ticket",
+
+        "MONGODB_CONNECTION_STRING": "mongodb://root:example@mongodb:27017",
+        "MONGODB_DATABASE_NAME": "CinemaEcommerceTicket",
+        "MONGODB_TICKETS_COLLECTION_NAME": "tickets"
       }
     },
     "IIS Express": {
