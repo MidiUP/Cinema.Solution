@@ -1,4 +1,4 @@
-﻿using Cinema.APIGateway.Domain.Events;
+﻿using Cinema.Domain.Events;
 
 namespace Cinema.APIGateway.Domain.Infrastructure;
 

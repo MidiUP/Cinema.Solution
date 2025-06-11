@@ -1,4 +1,4 @@
-﻿namespace Cinema.APIGateway.Domain.Events.EcommerceTicket;
+﻿namespace Cinema.Domain.Events;
 
 public class EcommerceCreateTicketEvent : Event
 {

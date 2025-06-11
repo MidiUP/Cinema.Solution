@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.APIGateway.Infrastructure.RabbitMq.Config;
 
-public class TopicProducer<T> : ITopicProducer<T> where T : Domain.Events.Event
+public class TopicProducer<T> : ITopicProducer<T> where T : Cinema.Domain.Events.Event
 {
     private readonly string _topicName;
     private readonly ISendEndpointProvider _sendEndpointProvider;

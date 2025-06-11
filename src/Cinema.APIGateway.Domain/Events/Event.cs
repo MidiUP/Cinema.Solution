@@ -1,3 +1,3 @@
-﻿namespace Cinema.APIGateway.Domain.Events;
+﻿namespace Cinema.Domain.Events;
 
 public class Event { }

@@ -1,4 +1,4 @@
-﻿using Cinema.APIGateway.Domain.Events.EcommerceTicket;
+﻿using Cinema.Domain.Events;
 using Cinema.APIGateway.Domain.Exceptions;
 using Cinema.APIGateway.Domain.Infrastructure;
 using Cinema.APIGateway.Domain.Mappers.EcommerceTicket;

@@ -13,6 +13,11 @@ public class TicketModel
     public int MovieId { get; set; }
 
     /// <summary>
+    /// Identificador do cliente
+    /// </summary>
+    public int CustomerId { get; set; }
+
+    /// <summary>
     /// Identificador do checkin
     /// </summary>
     public int CheckInId { get; set; }

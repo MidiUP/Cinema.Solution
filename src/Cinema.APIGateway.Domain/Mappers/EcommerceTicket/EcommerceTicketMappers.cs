@@ -1,5 +1,5 @@
 ﻿using Cinema.APIGateway.Domain.Dtos.Requests.EcommerceTicket;
-using Cinema.APIGateway.Domain.Events.EcommerceTicket;
+using Cinema.Domain.Events;
 using Cinema.APIGateway.Domain.Models.EcommerceTicket;
 
 namespace Cinema.APIGateway.Domain.Mappers.EcommerceTicket;
