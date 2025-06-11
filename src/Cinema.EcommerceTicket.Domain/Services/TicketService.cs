@@ -18,6 +18,7 @@ public class TicketService(ILogger<TicketService> logger, ITicketRepository tick
 
         //lógica para calcular preço seria aplicada aqui
         ticketModel.Price = 20.00m;
+        ticketModel.CreatedAt = DateTime.Now;
 
         var validationModel = ticketModel.Validation();
         if(!validationModel.IsValid)
@@ -29,8 +30,8 @@ public class TicketService(ILogger<TicketService> logger, ITicketRepository tick
         await _ticketRepository.CreateTicketAsync(ticketModel);
     }
 
-    public Task GetTicketsByCostumerAsync(int customerId)
+    public async Task<IEnumerable<TicketModel>> GetTicketsByCostumerAsync(int customerId)
     {
-        throw new NotImplementedException();
+        return await _ticketRepository.GetTicketsByCustomerAsync(customerId);
     }
 }

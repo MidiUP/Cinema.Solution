@@ -19,10 +19,12 @@ public static class Setup
     {
         services.AddMassTransit(x =>
         {
+            x.AddConsumer<CreateTicketConsumer>();
             ConfigureHealthCheck(x);
 
             x.UsingRabbitMq((context, cfg) =>
             {
+                
                 cfg.Host(HOST_RABBIMQ, "/", h =>
                 {
                     h.Username(HOST_RABBIMQ_USERNAME);
@@ -42,7 +44,8 @@ public static class Setup
                     r.Ignore(typeof(CinemaEcommerceTicketException));
                 });
 
-                AddConsumer<CreateTicketConsumer>(x, cfg, context, QUEUE_CREATE_ECOMMERCE_TICKET_NAME);
+                AddConsumer<CreateTicketConsumer>(cfg, context, QUEUE_CREATE_ECOMMERCE_TICKET_NAME);
+
             });
         });
     }
@@ -57,11 +60,10 @@ public static class Setup
         });
     }
 
-    private static void AddConsumer<T>(IBusRegistrationConfigurator x, IRabbitMqBusFactoryConfigurator cfg,
+    private static void AddConsumer<T>(IRabbitMqBusFactoryConfigurator cfg,
         IBusRegistrationContext context,
         string queue) where T : class, IConsumer
     {
-        x.AddConsumer<CreateTicketConsumer>();
 
         cfg.ReceiveEndpoint(queue, e =>
         {

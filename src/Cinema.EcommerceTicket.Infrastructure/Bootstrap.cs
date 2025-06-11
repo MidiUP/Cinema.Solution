@@ -1,5 +1,7 @@
-﻿using Cinema.EcommerceTicket.Infrastructure.MongoDb;
+﻿using Cinema.EcommerceTicket.Domain.Infrastructure.Repositories;
+using Cinema.EcommerceTicket.Infrastructure.MongoDb;
 using Cinema.EcommerceTicket.Infrastructure.RabbitMq;
+using Cinema.EcommerceTicket.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cinema.EcommerceTicket.Infrastructure;
@@ -25,6 +27,6 @@ public static class Bootstrap
 
     private static void AddRepositories(IServiceCollection services)
     {
-        //services.AddScoped<ICatalogRepository, CatalogRepository>();
+        services.AddScoped<ITicketRepository, TicketRepository>();
     }
 }

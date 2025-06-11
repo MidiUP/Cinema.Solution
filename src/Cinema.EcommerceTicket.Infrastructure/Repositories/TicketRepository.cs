@@ -10,8 +10,7 @@ public class TicketRepository : ITicketRepository
 {
     private readonly IMongoUnitOfWork _unitOfWork;
     private readonly IMongoCollection<TicketModel> _ticketCollection;
-    private readonly string COLLECTION_NAME = Constants.MongoDb.MONGODB_DATABASE_NAME;
-
+    private readonly string COLLECTION_NAME = Constants.MongoDb.MONGODB_TICKETS_COLLECTION_NAME;
 
     public TicketRepository(IMongoUnitOfWork unitOfWork, IMongoDatabase database)
     {
@@ -20,15 +19,15 @@ public class TicketRepository : ITicketRepository
     }
     public async Task CreateTicketAsync(TicketModel ticketModel)
     {
-        await _unitOfWork.StartTransactionAsync();
+        //await _unitOfWork.StartTransactionAsync();
         try
         {
-            await _ticketCollection.InsertOneAsync(_unitOfWork.Session, ticketModel);
-            await _unitOfWork.CommitAsync();
+            await _ticketCollection.InsertOneAsync(ticketModel);
+            //await _unitOfWork.CommitAsync();
         }
         catch
         {
-            await _unitOfWork.AbortAsync();
+            //await _unitOfWork.AbortAsync();
             throw;
         }
     }

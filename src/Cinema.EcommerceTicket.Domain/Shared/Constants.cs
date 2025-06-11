@@ -4,7 +4,7 @@ namespace Cinema.EcommerceTicket.Domain.Shared;
 
 public static class Constants
 {
-    public static string ENVIRONMENT => Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
+    public static string ENVIRONMENT => Environment.GetEnvironmentVariable("ENV") ?? "ENV";
     public static class RabbitMq
     {
         public static string RABBIMQ_PORT => Environment.GetEnvironmentVariable("RABBIMQ_PORT") ?? throw new ConfigurationErrorsException("A variável de amibente RABBIMQ_PORT não pode ser nula.");  

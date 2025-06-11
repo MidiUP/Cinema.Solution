@@ -1,5 +1,7 @@
 ﻿using Cinema.EcommerceTicket.Domain.Models.Interfaces;
 using Cinema.EcommerceTicket.Domain.Shared;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace Cinema.EcommerceTicket.Domain.Models;
 
@@ -8,6 +10,8 @@ public class TicketModel : IModelValidator
     /// <summary>
     /// Identificador do ticket
     /// </summary>
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
     public string Id { get; set; } = null!;
 
     /// <summary>

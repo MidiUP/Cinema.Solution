@@ -1,3 +1,3 @@
-﻿namespace Cinema.EcommerceTicket.Domain.Events;
+﻿namespace Cinema.Domain.Events;
 
 public class Event { }

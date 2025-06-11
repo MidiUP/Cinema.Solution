@@ -12,7 +12,7 @@ public class ExceptionFilter : IExceptionFilter
 
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is CinemaAPIGatewayException exception)
+        if (context.Exception is CinemaEcommerceTicketException exception)
             HandleResultException(context, exception.ERROR_CODE);
         else
             HandleUnknownException(context);
@@ -22,7 +22,7 @@ public class ExceptionFilter : IExceptionFilter
     {
         var exception = context.Exception;
 
-        if(exception is CinemaAPIGatewayException cinemaAPIGatewayException)
+        if(exception is CinemaEcommerceTicketException cinemaAPIGatewayException)
             context.Result = new ObjectResult(new ErrorResponseDto(cinemaAPIGatewayException.Errors ?? [], cinemaAPIGatewayException.Message));
         else
             context.Result = new ObjectResult(new ErrorResponseDto(SERVER_ERROR_MESSAGE));

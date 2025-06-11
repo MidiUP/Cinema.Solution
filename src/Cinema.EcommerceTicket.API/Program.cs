@@ -1,5 +1,7 @@
 using Cinema.EcommerceTicket.API.Filters;
+using Cinema.EcommerceTicket.Domain;
 using Cinema.EcommerceTicket.Infrastructure;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +23,7 @@ builder.Services.AddApiVersioning(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDomainServices();
 builder.Services.AddInfrastructureServices();
 
 var app = builder.Build();
@@ -30,5 +33,14 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHealthChecks("/health", new HealthCheckOptions());
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    builder.Logging.AddConsole();
+}
 
 app.Run();
