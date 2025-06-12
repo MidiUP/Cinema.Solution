@@ -26,7 +26,7 @@ public class ExceptionFilter(ILogger<ExceptionFilter> logger) : IExceptionFilter
         }
     }
 
-    private void HandleResultException(ExceptionContext context, ErrorResponseDto errorResponseDto, int statusCode)
+    private static void HandleResultException(ExceptionContext context, ErrorResponseDto errorResponseDto, int statusCode)
     {
         context.Result = new ObjectResult(errorResponseDto); 
         context.HttpContext.Response.StatusCode = statusCode;
