@@ -7,11 +7,14 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ENV": "dev",
+
         "RABBIMQ_HOST": "localhost",
         "RABBIMQ_PORT": "5672",
         "RABBIMQ_USERNAME": "username",
         "RABBIMQ_PASSWORD": "password",
-        "QUEUE_CREATE_ECOMMERCE_TICKET_NAME": "cinema-ecommerce-criacao-ticket"
+        "QUEUE_CREATE_ECOMMERCE_TICKET_NAME": "cinema-ecommerce-criacao-ticket",
+
+        "ECOMMERCE_TICKET_API_BASE_URL": "http://localhost:5045/api/"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5184"

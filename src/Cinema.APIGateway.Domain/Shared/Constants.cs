@@ -5,6 +5,13 @@ namespace Cinema.APIGateway.Domain.Shared;
 public static class Constants
 {
     public static string ENVIRONMENT => Environment.GetEnvironmentVariable("ENV") ?? throw new ConfigurationErrorsException("A variável de amibente ENV não pode ser nula.");
+    
+    public static class EcommerceTicketApi
+    {
+        public static string NAME => "EcommerceTicketApi";
+        public static string BASE_URL => Environment.GetEnvironmentVariable("ECOMMERCE_TICKET_API_BASE_URL") ?? throw new ConfigurationErrorsException("A variável de amibente ECOMMERCE_TICKET_API_BASE_URL não pode ser nula.");
+    }
+
     public static class RabbitMq
     {
         public static string RABBIMQ_PORT => Environment.GetEnvironmentVariable("RABBIMQ_PORT") ?? throw new ConfigurationErrorsException("A variável de amibente RABBIMQ_PORT não pode ser nula.");  

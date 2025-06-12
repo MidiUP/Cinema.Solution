@@ -10,7 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ExceptionFilter>();
+})
+.AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
 });
+
 
 builder.Services.AddApiVersioning(options =>
 {
