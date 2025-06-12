@@ -1,0 +1,95 @@
+    
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: username
+      RABBITMQ_DEFAULT_PASS: password
+    volumes:
+      - ./rabbitmq-init.sh:/docker-entrypoint-init.d/rabbitmq-init.sh
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb:
+    image: mongo:7.0
+    container_name: cinema-mongodb
+    restart: always
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app_network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok'
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cinema-apigateway-api:
+    build:
+      context: .\Cinema.APIGateway
+      dockerfile: src\Cinema.APIGateway.API\Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5000
+      - ENV=dev
+      - RABBIMQ_HOST=rabbitmq
+      - RABBIMQ_PORT=5672
+      - RABBIMQ_USERNAME=username
+      - RABBIMQ_PASSWORD=password
+      - QUEUE_CREATE_ECOMMERCE_TICKET_NAME=cinema-ecommerce-criacao-ticket
+      - ECOMMERCE_TICKET_API_BASE_URL=http://cinema-ecommerce-ticket-api:5000/api/
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - app_network
+
+  cinema-ecommerce-ticket-api:
+    build:
+      context: .\Cinema.EcommerceTicket
+      dockerfile: src\Cinema.EcommerceTicket.API\Dockerfile
+    ports:
+      - "5001:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5000
+      - ENV=dev
+      - RABBIMQ_HOST=rabbitmq
+      - RABBIMQ_PORT=5672
+      - RABBIMQ_USERNAME=username
+      - RABBIMQ_PASSWORD=password
+      - QUEUE_CREATE_ECOMMERCE_TICKET_NAME=cinema-ecommerce-criacao-ticket
+      - MONGODB_CONNECTION_STRING=mongodb://root:example@mongodb:27017/?retryWrites=false
+      - MONGODB_DATABASE_NAME=cinema_ecommerce_ticket
+      - MONGODB_TICKETS_COLLECTION_NAME=tickets
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - app_network
+
+
+volumes:
+  mongo_data:
+
+networks:
+  app_network:
+    driver: bridge
