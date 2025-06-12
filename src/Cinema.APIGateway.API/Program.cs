@@ -16,6 +16,12 @@ builder.Services.AddControllers(options =>
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
 });
 
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+    options.LowercaseQueryStrings = true;
+    options.AppendTrailingSlash = false;
+});
 
 builder.Services.AddApiVersioning(options =>
 {
