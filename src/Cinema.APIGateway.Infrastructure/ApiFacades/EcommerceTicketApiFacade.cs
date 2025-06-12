@@ -3,22 +3,21 @@ using Cinema.APIGateway.Domain.Models.EcommerceTicket;
 using Cinema.APIGateway.Domain.Shared;
 using Cinema.APIGateway.Infrastructure.HttpClients;
 
-namespace Cinema.APIGateway.Infrastructure.ApiAdapters;
+namespace Cinema.APIGateway.Infrastructure.ApiFacades;
 
-class EcommerceTicketApiAdapter(IHttpClientFactory httpClientFactory) : IEcommerceTicketApiAdapter
+class EcommerceTicketApiFacade(IHttpClientFactory httpClientFactory) : IEcommerceTicketApiFacade
 {
     private readonly HttpClient _httpClient = httpClientFactory.CreateClient(Constants.EcommerceTicketApi.NAME);
-    private readonly HttpAdapter _httpAdapter = new();
 
     public async Task<IEnumerable<TicketModel>> GetTicketsAsync(CancellationToken cancellationToken)
     {
         var path = "v1/Ticket";
-        return await _httpAdapter.GetAsync<IEnumerable<TicketModel>>(_httpClient, path, cancellationToken);
+        return await _httpClient.GetAsync<IEnumerable<TicketModel>>(path, cancellationToken);
     }
 
     public async Task<IEnumerable<TicketModel>> GetTicketsByCustomerIdAsync(int customerId, CancellationToken cancellationToken)
     {
         var path = $"v1/Ticket/{customerId}";
-        return await _httpAdapter.GetAsync<IEnumerable<TicketModel>>(_httpClient, path, cancellationToken);
+        return await _httpClient.GetAsync<IEnumerable<TicketModel>>(path, cancellationToken);
     }
 }

@@ -11,10 +11,10 @@ using Cinema.APIGateway.Domain.Infrastructure.ApiAdapters;
 namespace Cinema.APIGateway.Domain.Services.EcommerceTicket;
 
 public class EcommerceTicketService(ITopicProducer<EcommerceCreateTicketEvent> topicProducer, ILogger<EcommerceTicketService> logger, 
-    IEcommerceTicketApiAdapter ecommerceTicketHttpAdapter) : IEcommerceTicketService
+    IEcommerceTicketApiFacade ecommerceTicketHttpAdapter) : IEcommerceTicketService
 {
     private readonly ITopicProducer<EcommerceCreateTicketEvent> _topicProducer = topicProducer;
-    private readonly IEcommerceTicketApiAdapter _ecommerceTicketHttpAdapter = ecommerceTicketHttpAdapter;
+    private readonly IEcommerceTicketApiFacade _ecommerceTicketHttpAdapter = ecommerceTicketHttpAdapter;
     private readonly ILogger<EcommerceTicketService> _logger = logger;
 
     private readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(30);

@@ -1,6 +1,6 @@
 ﻿using Cinema.APIGateway.Domain.Infrastructure.ApiAdapters;
 using Cinema.APIGateway.Domain.Infrastructure.Repositories;
-using Cinema.APIGateway.Infrastructure.ApiAdapters;
+using Cinema.APIGateway.Infrastructure.ApiFacades;
 using Cinema.APIGateway.Infrastructure.HttpClients;
 using Cinema.APIGateway.Infrastructure.RabbitMq;
 using Cinema.APIGateway.Infrastructure.Repositories.Catalog;
@@ -24,6 +24,6 @@ public static class Bootstrap
     }
     private static void AddHttpClientsAdapter(this IServiceCollection services)
     {
-        services.AddScoped<IEcommerceTicketApiAdapter, EcommerceTicketApiAdapter>();
+        services.AddScoped<IEcommerceTicketApiFacade, EcommerceTicketApiFacade>();
     }
 }

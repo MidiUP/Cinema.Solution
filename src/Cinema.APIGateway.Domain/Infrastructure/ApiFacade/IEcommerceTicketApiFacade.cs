@@ -2,7 +2,7 @@
 
 namespace Cinema.APIGateway.Domain.Infrastructure.ApiAdapters;
 
-public interface IEcommerceTicketApiAdapter 
+public interface IEcommerceTicketApiFacade 
 {
     public Task<IEnumerable<TicketModel>> GetTicketsAsync(CancellationToken cancellationToken);
     public Task<IEnumerable<TicketModel>> GetTicketsByCustomerIdAsync(int customerId, CancellationToken cancellationToken);
