@@ -1,0 +1,41 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:42729",
+      "sslPort": 0
+    }
+  },
+  "profiles": {
+    "Cinema.EcommerceTicket": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "applicationUrl": "http://localhost:5045",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ENV": "dev",
+        "RABBIMQ_HOST": "localhost",
+        "RABBIMQ_PORT": "5672",
+        "RABBIMQ_USERNAME": "username",
+        "RABBIMQ_PASSWORD": "password",
+        "QUEUE_CREATE_ECOMMERCE_TICKET_NAME": "cinema-ecommerce-criacao-ticket",
+
+        "MONGODB_CONNECTION_STRING": "mongodb://root:example@localhost:27018?retryWrites=false",
+        "MONGODB_DATABASE_NAME": "cinema_ecommerce_ticket",
+        "MONGODB_TICKETS_COLLECTION_NAME": "tickets"
+      }
+    },
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "weatherforecast",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
