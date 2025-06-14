@@ -22,7 +22,17 @@ public class TmdbApiFacade(IHttpClientFactory httpClientFactory) : ITmdbApiFacad
             ["language"] = QUERY_LANGUAGE
         };
 
-        return await _httpClient.GetAsync<DetailsMovieModel>(path, queryParams, cancellationToken);
+        // Try catch para corrigir status code errado na resposta da API, devolve erro 404 ao não encontrar filme
+        try
+        {
+            return await _httpClient.GetAsync<DetailsMovieModel>(path, queryParams, cancellationToken);
+        }catch(Exception ex)
+        {
+            if (ex.Message == "Response status code does not indicate success: 404 (Not Found).")
+                return null;
+            throw;
+        }
+
     }
 
     public async Task<IEnumerable<MovieModel>> GetMoviesAsync(SearchMoviesModel searchMoviesModel, CancellationToken cancellationToken = default)
