@@ -1,7 +1,7 @@
 ﻿using Cinema.APIGateway.Domain.Infrastructure;
 using Cinema.APIGateway.Domain.Shared;
 using Cinema.APIGateway.Infrastructure.RabbitMq.Config;
-using Cinema.Domain.Events;
+using Cinema.Events;
 using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -41,7 +41,7 @@ public static class Setup
         services.AddProducer<EcommerceCreateTicketEvent>(QUEUE_CREATE_ECOMMERCE_TICKET_NAME);
     }
 
-    private static void AddProducer<T>(this IServiceCollection services, string queue) where T : Cinema.Domain.Events.Event
+    private static void AddProducer<T>(this IServiceCollection services, string queue) where T : Events.Event
     {
         services.AddScoped<ITopicProducer<T>>(provider => new TopicProducer<T>(provider.GetRequiredService<ISendEndpointProvider>(), queue));
     }
