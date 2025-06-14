@@ -1,3 +1,3 @@
-﻿namespace Cinema.Domain.Events;
+﻿namespace Cinema.Events;
 
 public class Event { }
