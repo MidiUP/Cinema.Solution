@@ -53,14 +53,15 @@ services:
       - RABBIMQ_USERNAME=username
       - RABBIMQ_PASSWORD=password
       - QUEUE_CREATE_ECOMMERCE_TICKET_NAME=cinema-ecommerce-criacao-ticket
-      - ECOMMERCE_TICKET_API_BASE_URL=http://cinema-ecommerce-ticket-api:5000/api/
+      - ECOMMERCE_TICKET_API_BASE_URL=http://cinema-ecommerce-ticket:5000/api/
+      - CATALOG_API_BASE_URL=http://cinema-catalog:5093/api/
     depends_on:
       rabbitmq:
         condition: service_healthy
     networks:
       - app_network
 
-  cinema-ecommerce-ticket-api:
+  cinema-ecommerce-ticket:
     build:
       context: .\Cinema.EcommerceTicket
       dockerfile: src\Cinema.EcommerceTicket.API\Dockerfile
@@ -78,6 +79,28 @@ services:
       - MONGODB_CONNECTION_STRING=mongodb://root:example@mongodb:27017/?retryWrites=false
       - MONGODB_DATABASE_NAME=cinema_ecommerce_ticket
       - MONGODB_TICKETS_COLLECTION_NAME=tickets
+      - CATALOG_API_BASE_URL=http://cinema-catalog:5093/api/
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - app_network
+
+    cinema-catalog:
+    build:
+      context: .\Cinema.Catalog
+      dockerfile: src\Cinema.Catalog.API\Dockerfile
+    ports:
+      - "5002:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5000
+      - ENV=dev
+      - TMDB_API_BASE_URL=https://api.themoviedb.org/3/
+      - TMDB_API_KEY=1f54bd990f1cdfb230adb312546d765d
+      - TMDB_API_AUTH_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZWQ5Y2E0NTUzZThiZmRmMjk5NjI1ZDI4ZjNlMGM0NCIsIm5iZiI6MTcyODQxODM3OS4zNzk5MjIsInN1YiI6IjY3MDU4Yjc1MDAwMDAwMDAwMDU4NTNiMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.p-MmF0K7-ku9kDlcyg4Ry8IeQMiufz5zTK-VT5wuOu8
     depends_on:
       mongodb:
         condition: service_healthy
