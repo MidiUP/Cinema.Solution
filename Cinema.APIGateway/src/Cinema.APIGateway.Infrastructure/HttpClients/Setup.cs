@@ -4,6 +4,7 @@ using Cinema.APIGateway.Domain.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
+using Polly.Retry;
 
 namespace Cinema.APIGateway.Infrastructure.HttpClients;
 
@@ -12,7 +13,7 @@ public static class Setup
     public static void AddHttpClients(this IServiceCollection services)
     {
         services.AddEcommerceTicketApiHttpClient();
-        //services.AddHandlersHttp(); exemplo de como adicionar handlers personalizados
+        services.AddCatalogApiHttpClient();
     }
 
     private static void AddEcommerceTicketApiHttpClient(this IServiceCollection services)
@@ -22,15 +23,18 @@ public static class Setup
             httpClient.BaseAddress = new Uri(Constants.EcommerceTicketApi.BASE_URL);
         })
         .AddPolicyHandler(GetRetryPolicy());
-        //.AddHttpMessageHandler<AuthenticateCustomHandler<SensediaGatewayAdapter>>();
     }
 
-    private static void AddHandlersHttp(this IServiceCollection services)
+    private static void AddCatalogApiHttpClient(this IServiceCollection services)
     {
-        //services.AddTransient<AuthenticateCustomHandler<SensediaGatewayAdapter>>(); // exemplo de como adicionar handler de autenticação personalizado
+        services.AddHttpClient(Constants.CatalogApi.NAME, httpClient =>
+        {
+            httpClient.BaseAddress = new Uri(Constants.CatalogApi.BASE_URL);
+        })
+        .AddPolicyHandler(GetRetryPolicy());
     }
 
-    private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+    private static AsyncRetryPolicy<HttpResponseMessage> GetRetryPolicy()
     {
         return HttpPolicyExtensions
             .HandleTransientHttpError()

@@ -11,18 +11,38 @@ public class ExceptionFilter(ILogger<ExceptionFilter> logger) : IExceptionFilter
     private readonly ILogger<ExceptionFilter> _logger = logger;
 
     const string SERVER_ERROR_MESSAGE = "Ocorreu um inesperado. Por favor tente novamente mais tarde";
+    const string TIMEOUT_ERROR_MESSAGE = "Sua requisição excedeu o tempo limite.";
 
     public void OnException(ExceptionContext context)
     {
-        if (context.Exception is CinemaAPIGatewayException cinemaAPIGatewayException)
+        switch (context.Exception)
         {
-            _logger.LogWarning(context.Exception, "Erro conhecido no filtro de exceção");
-            HandleResultException(context, new ErrorResponseDto(cinemaAPIGatewayException.Errors ?? [], cinemaAPIGatewayException.Message), cinemaAPIGatewayException.ERROR_CODE);
-        }
-        else
-        {
-            _logger.LogError(context.Exception, "Erro desconhecido no filtro de exceção");
-            HandleResultException(context, new ErrorResponseDto(SERVER_ERROR_MESSAGE), (int)HttpStatusCode.InternalServerError);
+            case CinemaAPIGatewayException cinemaEx:
+                _logger.LogWarning(context.Exception, "Erro conhecido no filtro de exceção");
+                HandleResultException(
+                    context,
+                    new ErrorResponseDto(cinemaEx.Errors ?? [], cinemaEx.Message),
+                    cinemaEx.ERROR_CODE
+                );
+                break;
+
+            case OperationCanceledException canceledEx:
+                _logger.LogWarning(canceledEx, "Timeout no filtro de exceção");
+                HandleResultException(
+                    context,
+                    new ErrorResponseDto(TIMEOUT_ERROR_MESSAGE),
+                    (int)HttpStatusCode.RequestTimeout
+                );
+                break;
+
+            default:
+                _logger.LogError(context.Exception, "Erro desconhecido no filtro de exceção");
+                HandleResultException(
+                    context,
+                    new ErrorResponseDto(SERVER_ERROR_MESSAGE),
+                    (int)HttpStatusCode.InternalServerError
+                );
+                break;
         }
     }
 

@@ -1,12 +1,10 @@
 ﻿using Cinema.APIGateway.API.Attributes;
 using Cinema.APIGateway.Domain.Dtos.Requests.EcommerceTicket;
-using Cinema.APIGateway.Domain.Mappers.EcommerceTicket;
 using Cinema.APIGateway.Domain.Dtos.Responses;
-using Cinema.APIGateway.Domain.Models.Catalog;
+using Cinema.APIGateway.Domain.Dtos.Responses.EcommerceTicket;
+using Cinema.APIGateway.Domain.Mappers.EcommerceTicket;
 using Cinema.APIGateway.Domain.Services.EcommerceTicket.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Cinema.APIGateway.Domain.Models.EcommerceTicket;
-using Cinema.APIGateway.Domain.Dtos.Responses.EcommerceTicket;
 
 namespace Cinema.APIGateway.API.Controllers.V1;
 
@@ -19,6 +17,7 @@ public class EcommerceTicketController(IEcommerceTicketService ecommerceTicketSe
     [HttpPost("check-in")]
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status408RequestTimeout)]
     [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> CheckInTicketAsync([FromBody] CreateCheckInRequestDto createCheckInRequest)
     {
@@ -30,13 +29,14 @@ public class EcommerceTicketController(IEcommerceTicketService ecommerceTicketSe
 
     [HttpGet("tickets/{customerId}")]
     [ProducesResponseType<IEnumerable<GetTicketResponseDto>>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status408RequestTimeout)]
     [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> GetTicketByCustomerIdAsync([FromRoute] int customerId)
     {
-        var response = await _ecommerceTicketService.GetTicketsByCustomerIdAsync(customerId);
-        if(response is null || !response.Any())
+        var tickets = await _ecommerceTicketService.GetTicketsByCustomerIdAsync(customerId);
+        if(tickets is null || !tickets.Any())
             return NoContent();
 
-        return Ok(response);
+        return Ok(tickets.Select(ticket => ticket.MapToGetTicketResponseDto()));
     }
 }

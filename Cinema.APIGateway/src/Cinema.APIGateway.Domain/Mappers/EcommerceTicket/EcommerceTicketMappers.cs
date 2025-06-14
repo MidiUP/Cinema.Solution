@@ -1,6 +1,7 @@
 ﻿using Cinema.APIGateway.Domain.Dtos.Requests.EcommerceTicket;
-using Cinema.Domain.Events;
+using Cinema.APIGateway.Domain.Dtos.Responses.EcommerceTicket;
 using Cinema.APIGateway.Domain.Models.EcommerceTicket;
+using Cinema.Events;
 
 namespace Cinema.APIGateway.Domain.Mappers.EcommerceTicket;
 
@@ -21,6 +22,19 @@ public static class EcommerceTicketMappers
         {
             CustomerId = request.CustomerId,
             MovieId = request.MovieId
+        };
+    }
+
+    public static GetTicketResponseDto MapToGetTicketResponseDto(this TicketModel ticketModel)
+    {
+        return new GetTicketResponseDto
+        {
+            Id = ticketModel.Id,
+            CheckInId = ticketModel.CheckInId,
+            CreatedAt = ticketModel.CreatedAt,
+            CustomerId = ticketModel.CustomerId,
+            MovieId = ticketModel.MovieId,
+            Price = ticketModel.Price
         };
     }
 }
