@@ -16,6 +16,7 @@ public class MoviesController(IMovieService movieService) : CinemaCatalogControl
     [ProducesResponseType<IEnumerable<MovieModel>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status408RequestTimeout)]
     [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> GetMoviesAsync([FromQuery] SearchMoviesModel searchMoviesModel)
     {
@@ -31,6 +32,7 @@ public class MoviesController(IMovieService movieService) : CinemaCatalogControl
     [ProducesResponseType<IEnumerable<DetailsMovieModel>>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status408RequestTimeout)]
     [ProducesResponseType<ErrorResponseDto>(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> GetMoviesAsync([FromRoute] int id)
     {

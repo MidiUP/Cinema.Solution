@@ -9,6 +9,7 @@ public static class MovieMappers
     {
         return new MovieModel
         {
+            Id = item.Id,
             Description = item.Overview,
             Name = item.Title,
             PremiereYear = item.ReleaseDate
