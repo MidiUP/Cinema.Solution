@@ -1,7 +1,7 @@
 ﻿using Cinema.APIGateway.Domain.Models.Catalog;
 using Xunit;
 
-namespace Cinema.APIGateway.Domain.Tests.Models.Catalog;
+namespace Cinema.APIGateway.Tests.Domain.Models.Catalog;
 
 
 public class SearchMoviesModelTests

@@ -3,6 +3,7 @@ using Cinema.APIGateway.Domain.Shared;
 using Cinema.APIGateway.Infrastructure.RabbitMq.Config;
 using Cinema.Events;
 using MassTransit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
@@ -10,14 +11,11 @@ namespace Cinema.APIGateway.Infrastructure.RabbitMq;
 
 public static class Setup
 {
-    private static readonly string HOST_RABBIMQ = Constants.RabbitMq.RABBIMQ_HOST;
-    private static readonly string HOST_RABBIMQ_USERNAME = Constants.RabbitMq.RABBIMQ_USERNAME;
-    private static readonly string HOST_RABBIMQ_PASSWORD = Constants.RabbitMq.RABBIMQ_PASSWORD;
-
-    private static readonly string QUEUE_CREATE_ECOMMERCE_TICKET_NAME = GetNameQueue(Constants.RabbitMq.QUEUE_CREATE_ECOMMERCE_TICKET_NAME);
-
-    public static void AddRabbitMq(this IServiceCollection services)
+    public static void AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
     {
+        var rabbitMqOptions = configuration.GetSection("RabbitMq").Get<RabbitMqOptions>()!;
+        var queueCreateEcommerceTicketName = GetNameQueue(configuration["ENV"]!, rabbitMqOptions.QueueCreateEcommerceTicketName);
+        
         services.AddMassTransit(x =>
         {
             x.ConfigureHealthCheckOptions(options =>
@@ -29,16 +27,16 @@ public static class Setup
 
             x.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host(HOST_RABBIMQ, "/", h =>
+                cfg.Host(rabbitMqOptions.Host, "/", h =>
                 {
-                    h.Username(HOST_RABBIMQ_USERNAME);
-                    h.Password(HOST_RABBIMQ_PASSWORD);
+                    h.Username(rabbitMqOptions.Username);
+                    h.Password(rabbitMqOptions.Password);
                 });
             });
         });
 
         // Configura o producer para a fila desejada
-        services.AddProducer<EcommerceCreateTicketEvent>(QUEUE_CREATE_ECOMMERCE_TICKET_NAME);
+        services.AddProducer<EcommerceCreateTicketEvent>(queueCreateEcommerceTicketName);
     }
 
     private static void AddProducer<T>(this IServiceCollection services, string queue) where T : Events.Event
@@ -46,8 +44,8 @@ public static class Setup
         services.AddScoped<ITopicProducer<T>>(provider => new TopicProducer<T>(provider.GetRequiredService<ISendEndpointProvider>(), queue));
     }
 
-    private static string GetNameQueue(string queueName)
+    private static string GetNameQueue(string env, string queueName)
     {
-        return $"{Constants.ENVIRONMENT}.{queueName}";
+        return $"{env}.{queueName}";
     }
 }

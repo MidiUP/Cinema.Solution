@@ -1,7 +1,15 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cinema.APIGateway.Domain.Dtos.Responses.Catalog;
 
+/// <summary>
+/// DTO de resposta para a consulta de filmes no catálogo.
+/// </summary>
+/// <remarks>
+/// Contém as informações detalhadas de um filme retornado pela API de catálogo.
+/// </remarks>
+[ExcludeFromCodeCoverage]
 public record GetMoviesResponseDto
 {
     /// <summary>

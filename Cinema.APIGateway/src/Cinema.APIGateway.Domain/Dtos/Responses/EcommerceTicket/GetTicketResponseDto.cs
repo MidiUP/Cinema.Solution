@@ -1,7 +1,15 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cinema.APIGateway.Domain.Dtos.Responses.EcommerceTicket;
 
+/// <summary>
+/// DTO de resposta para consulta de ticket de ingresso de cinema.
+/// </summary>
+/// <remarks>
+/// Contém as informações detalhadas de um ticket retornado pela API de e-commerce de ingressos.
+/// </remarks>
+[ExcludeFromCodeCoverage]
 public class GetTicketResponseDto
 {
     /// <summary>

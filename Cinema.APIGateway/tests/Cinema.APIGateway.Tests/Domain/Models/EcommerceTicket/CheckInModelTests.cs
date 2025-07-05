@@ -1,7 +1,7 @@
 ﻿using Cinema.APIGateway.Domain.Models.EcommerceTicket;
 using Xunit;
 
-namespace Cinema.APIGateway.Domain.Tests.Models.EcommerceTicket;
+namespace Cinema.APIGateway.Tests.Domain.Models.EcommerceTicket;
 
 public class CheckInModelTests
 {
