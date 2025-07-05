@@ -12,7 +12,7 @@ services:
       RABBITMQ_DEFAULT_PASS: admin123
       RABBITMQ_DEFAULT_VHOST: /
     volumes:
-      - ./rabbitmq-init.sh:/docker-entrypoint-init.d/rabbitmq-init.sh
+      - ./scripts/rabbitmq-init.sh:/docker-entrypoint-init.d/rabbitmq-init.sh
     networks:
       - app_network
     healthcheck:
@@ -32,7 +32,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mongo_data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - ./scripts/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     networks:
       - app_network
     healthcheck:
