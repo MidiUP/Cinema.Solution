@@ -14,7 +14,7 @@ public static class Setup
     public static void AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
     {
         var rabbitMqOptions = configuration.GetSection("RabbitMq").Get<RabbitMqOptions>()!;
-        var queueCreateEcommerceTicketName = GetNameQueue(configuration["ENV"]!, rabbitMqOptions.QueueCreateEcommerceTicketName);
+        var queueCreateEcommerceTicketName = GetNameQueue(Constants.ENV, rabbitMqOptions.QueueCreateEcommerceTicketName);
         
         services.AddMassTransit(x =>
         {
