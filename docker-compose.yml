@@ -11,15 +11,36 @@ services:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin123
       RABBITMQ_DEFAULT_VHOST: /
-    volumes:
-      - ./scripts/rabbitmq-init.sh:/docker-entrypoint-init.d/rabbitmq-init.sh
     networks:
       - app_network
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "ping"]
       interval: 10s
-      timeout: 5s
-      retries: 5
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  rabbitmq-init:
+    image: alpine:latest
+    container_name: cinema-rabbitmq-init
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./scripts/rabbitmq-init.sh:/init.sh
+    networks:
+      - app_network
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_ADMIN_USER: admin
+      RABBITMQ_ADMIN_PASS: admin123
+    command: >
+      sh -c "
+        apk add --no-cache curl &&
+        sh /init.sh &&
+        echo 'Inicialização concluída, saindo...'
+      "
+    restart: "no"
 
   mongodb:
     image: mongo:7.0
@@ -81,8 +102,8 @@ services:
       - ASPNETCORE_HTTP_PORTS=5000
       - ENV=dev
     depends_on:
-      rabbitmq:
-        condition: service_healthy
+      rabbitmq-init:
+        condition: service_completed_successfully
     networks:
       - app_network
 
@@ -101,13 +122,13 @@ services:
       - RabbitMq__Password=ecommerce_pass123
       - RabbitMq__QueueCreateEcommerceTicketName=cinema-ecommerce-criacao-ticket
       # MongoDb
-      - MongoDb__ConnectionString=mongodb://ecommerce_user:ecommerce_mongo_pass123@mongodb:27017/cinema_ecommerce_ticket?retryWrites=false
+      - MongoDb__ConnectionString=mongodb://ecommerce_user:ecommerce_mongo_pass123@mongodb:27017/cinema_ecommerce_ticket?authSource=admin&retryWrites=false
       - MongoDb__DatabaseName=cinema_ecommerce_ticket
       - MongoDb__TicketsCollectionName=tickets
       # CatalogApi
       - CatalogApi__BaseUrl=http://cinema-catalog:5000/api/
       # Redis
-      - Redis__ConnectionString=redis:6379,password=MinhaSenhaRedis
+      - Redis__ConnectionString=redis:6379,password=redispassword
       # Environment Variables
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5000
@@ -115,8 +136,8 @@ services:
     depends_on:
       mongodb:
         condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
+      rabbitmq-init:
+        condition: service_completed_successfully
     networks:
       - app_network
 
@@ -138,7 +159,6 @@ services:
       - ENV=dev
     networks:
       - app_network
-
 
 volumes:
   mongo_data:
