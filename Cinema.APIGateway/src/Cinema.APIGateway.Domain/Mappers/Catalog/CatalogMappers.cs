@@ -38,7 +38,7 @@ public static class CatalogMappers
             Id = movie.Id,
             Name = movie.Name,
             Description = movie.Description,
-            PremiereYear = movie.PremiereYear
+            PremiereYear = movie?.PremiereYear
         };
     }
 }
