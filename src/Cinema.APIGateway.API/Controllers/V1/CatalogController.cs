@@ -6,9 +6,11 @@ using Cinema.APIGateway.Domain.Mappers.Catalog;
 using Cinema.APIGateway.Domain.Models.Catalog;
 using Cinema.APIGateway.Domain.Services.Catalog.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cinema.APIGateway.API.Controllers.V1;
 
+[ExcludeFromCodeCoverage]
 [ApiVersion("1")]
 [CinemaApiGatewayVersionedRoute("1")]
 public class CatalogController(ICatalogService catalogService) : CinemaApiGatewayControllerBase

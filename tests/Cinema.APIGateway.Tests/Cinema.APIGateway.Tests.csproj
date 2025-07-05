@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Cinema.APIGateway.API\Cinema.APIGateway.API.csproj" />
     <ProjectReference Include="..\..\src\Cinema.APIGateway.Domain\Cinema.APIGateway.Domain.csproj" />
   </ItemGroup>
 

@@ -5,9 +5,11 @@ using Cinema.APIGateway.Domain.Dtos.Responses.EcommerceTicket;
 using Cinema.APIGateway.Domain.Mappers.EcommerceTicket;
 using Cinema.APIGateway.Domain.Services.EcommerceTicket.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cinema.APIGateway.API.Controllers.V1;
 
+[ExcludeFromCodeCoverage]
 [ApiVersion("1.0")]
 [CinemaApiGatewayVersionedRoute("1")]
 public class EcommerceTicketController(IEcommerceTicketService ecommerceTicketService) : CinemaApiGatewayControllerBase

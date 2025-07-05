@@ -1,6 +1,5 @@
-﻿
-
-using Cinema.APIGateway.Domain.Shared;
+﻿using Cinema.APIGateway.Domain.Shared;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
@@ -10,26 +9,29 @@ namespace Cinema.APIGateway.Infrastructure.HttpClients;
 
 public static class Setup
 {
-    public static void AddHttpClients(this IServiceCollection services)
+    public static void AddHttpClients(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddEcommerceTicketApiHttpClient();
-        services.AddCatalogApiHttpClient();
+        var ecommerceOptions = configuration.GetSection("EcommerceTicketApi").Get<EcommerceTicketApiOptions>()!;
+        var catalogOptions = configuration.GetSection("CatalogApi").Get<CatalogApiOptions>()!;
+
+        services.AddEcommerceTicketApiHttpClient(ecommerceOptions);
+        services.AddCatalogApiHttpClient(catalogOptions);
     }
 
-    private static void AddEcommerceTicketApiHttpClient(this IServiceCollection services)
+    private static void AddEcommerceTicketApiHttpClient(this IServiceCollection services, EcommerceTicketApiOptions options)
     {
-        services.AddHttpClient(Constants.EcommerceTicketApi.NAME, httpClient =>
+        services.AddHttpClient(options.Name, httpClient =>
         {
-            httpClient.BaseAddress = new Uri(Constants.EcommerceTicketApi.BASE_URL);
+            httpClient.BaseAddress = new Uri(options.BaseUrl);
         })
         .AddPolicyHandler(GetRetryPolicy());
     }
 
-    private static void AddCatalogApiHttpClient(this IServiceCollection services)
+    private static void AddCatalogApiHttpClient(this IServiceCollection services, CatalogApiOptions options)
     {
-        services.AddHttpClient(Constants.CatalogApi.NAME, httpClient =>
+        services.AddHttpClient(options.Name, httpClient =>
         {
-            httpClient.BaseAddress = new Uri(Constants.CatalogApi.BASE_URL);
+            httpClient.BaseAddress = new Uri(options.BaseUrl);
         })
         .AddPolicyHandler(GetRetryPolicy());
     }

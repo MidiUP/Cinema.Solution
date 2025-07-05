@@ -5,17 +5,7 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ENV": "dev",
-
-        "RABBIMQ_HOST": "localhost",
-        "RABBIMQ_PORT": "5672",
-        "RABBIMQ_USERNAME": "username",
-        "RABBIMQ_PASSWORD": "password",
-        "QUEUE_CREATE_ECOMMERCE_TICKET_NAME": "cinema-ecommerce-criacao-ticket",
-
-        "ECOMMERCE_TICKET_API_BASE_URL": "http://localhost:5045/api/",
-        "CATALOG_API_BASE_URL": "http://localhost:5093/api/"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5184"

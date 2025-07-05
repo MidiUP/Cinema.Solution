@@ -1,14 +1,21 @@
-﻿using Cinema.APIGateway.Domain.Infrastructure.ApiAdapters;
+﻿using Cinema.APIGateway.Domain.Infrastructure.ApiFacades;
 using Cinema.APIGateway.Domain.Models.Catalog;
-using Cinema.APIGateway.Domain.Models.EcommerceTicket;
 using Cinema.APIGateway.Domain.Shared;
 using Cinema.APIGateway.Infrastructure.HttpClients;
+using Microsoft.Extensions.Options;
 
 namespace Cinema.APIGateway.Infrastructure.ApiFacades;
 
-class CatalogApiFacade(IHttpClientFactory httpClientFactory) : ICatalogApiFacade
+class CatalogApiFacade : ICatalogApiFacade
 {
-    private readonly HttpClient _httpClient = httpClientFactory.CreateClient(Constants.CatalogApi.NAME);
+    private readonly CatalogApiOptions _catalogApiOptions;
+    private readonly HttpClient _httpClient;
+
+    public CatalogApiFacade(IHttpClientFactory httpClientFactory, IOptions<CatalogApiOptions> catalogApiOptions)
+    {
+        _catalogApiOptions = catalogApiOptions.Value;
+        _httpClient = httpClientFactory.CreateClient(_catalogApiOptions.Name);
+    }
 
     public async Task<IEnumerable<MovieModel>> GetMoviesAsync(SearchMoviesModel searchMoviesModel, CancellationToken cancellationToken)
     {
