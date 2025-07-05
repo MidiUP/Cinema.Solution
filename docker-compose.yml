@@ -2,15 +2,17 @@
 services:
   rabbitmq:
     image: rabbitmq:3-management
+    container_name: cinema-rabbitmq
     hostname: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin_secure_2025
+      RABBITMQ_DEFAULT_PASS: admin123
+      RABBITMQ_DEFAULT_VHOST: /
     volumes:
-      - ./rabbitmq-setup.sh:/docker-entrypoint-init.d/rabbitmq-setup.sh:ro
+      - ./rabbitmq-init.sh:/docker-entrypoint-init.d/rabbitmq-init.sh
     networks:
       - app_network
     healthcheck:
@@ -27,27 +29,31 @@ services:
       - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: cinema_ecommerce_ticket
+      MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - mongo_data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
     networks:
       - app_network
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      test: echo 'db.runCommand("ping").ok'
       interval: 10s
       timeout: 5s
       retries: 5
 
   redis:
-    image: "redis:7.2"
-    command: ["redis-server", "--requirepass", "MinhaSenhaRedis"]
+    image: redis:7-alpine
+    container_name: cinema-redis
+    restart: always
     ports:
       - "6379:6379"
-    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass redispassword
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
     healthcheck:
-      test: ["CMD", "redis-cli", "-a", "MinhaSenhaRedis", "ping"]
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -56,14 +62,15 @@ services:
     build:
       context: .\Cinema.APIGateway
       dockerfile: src\Cinema.APIGateway.API\Dockerfile
+    container_name: cinema-apigateway-api
     ports:
       - "5000:5000"
     environment:
-      # RabbitMq
+    # RabbitMq
       - RabbitMq__Host=rabbitmq
       - RabbitMq__Port=5672
       - RabbitMq__Username=apigateway_user
-      - RabbitMq__Password=apigateway_secure_2025
+      - RabbitMq__Password=apigateway_pass123
       - RabbitMq__QueueCreateEcommerceTicketName=cinema-ecommerce-criacao-ticket
       # EcommerceTicketApi
       - EcommerceTicketApi__BaseUrl=http://cinema-ecommerce-ticket:5000/api/
@@ -79,10 +86,11 @@ services:
     networks:
       - app_network
 
-  cinema-ecommerce-ticket:
+  cinema-ecommerce-ticket-api:
     build:
       context: .\Cinema.EcommerceTicket
       dockerfile: src\Cinema.EcommerceTicket.API\Dockerfile
+    container_name: cinema-ecommerce-ticket-api
     ports:
       - "5001:5000"
     environment:
@@ -90,10 +98,10 @@ services:
       - RabbitMq__Host=rabbitmq
       - RabbitMq__Port=5672
       - RabbitMq__Username=ecommerce_user
-      - RabbitMq__Password=ecommerce_secure_2025
+      - RabbitMq__Password=ecommerce_pass123
       - RabbitMq__QueueCreateEcommerceTicketName=cinema-ecommerce-criacao-ticket
       # MongoDb
-      - MongoDb__ConnectionString=mongodb://cinema_app_user:cinema_secure_db_2025@mongodb:27017/cinema_ecommerce_ticket?authSource=cinema_ecommerce_ticket&retryWrites=false
+      - MongoDb__ConnectionString=mongodb://ecommerce_user:ecommerce_mongo_pass123@mongodb:27017/cinema_ecommerce_ticket?retryWrites=false
       - MongoDb__DatabaseName=cinema_ecommerce_ticket
       - MongoDb__TicketsCollectionName=tickets
       # CatalogApi
@@ -109,8 +117,6 @@ services:
         condition: service_healthy
       rabbitmq:
         condition: service_healthy
-      redis:
-        condition: service_healthy
     networks:
       - app_network
 
@@ -118,6 +124,7 @@ services:
     build:
       context: .\Cinema.Catalog
       dockerfile: src\Cinema.Catalog.API\Dockerfile
+    container_name: cinema-catalog
     ports:
       - "5002:5000"
     environment:
@@ -132,8 +139,10 @@ services:
     networks:
       - app_network
 
+
 volumes:
   mongo_data:
+  redis_data:
 
 networks:
   app_network:
