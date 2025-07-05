@@ -1,17 +1,25 @@
 ﻿using System.Configuration;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Cinema.Catalog.Domain.Shared;
 
+/// <summary>
+/// Classe utilitária que centraliza constantes e variáveis globais do domínio.
+/// </summary>
+/// <remarks>
+/// Fornece acesso padronizado a valores globais utilizados em diferentes partes da aplicação.
+/// Atualmente, expõe a variável de ambiente <c>ENV</c>, que define o ambiente de execução (ex: Development, Production, Test).
+/// Caso a variável não esteja definida, uma exceção de configuração é lançada para evitar comportamentos inesperados.
+/// </remarks>
+[ExcludeFromCodeCoverage]
 public static class Constants
 {
+    /// <summary>
+    /// Obtém o valor da variável de ambiente <c>ENV</c> que indica o ambiente de execução da aplicação.
+    /// </summary>
+    /// <remarks>
+    /// Lança <see cref="ConfigurationErrorsException"/> se a variável não estiver definida.
+    /// </remarks>
     public static string ENVIRONMENT => Environment.GetEnvironmentVariable("ENV") ?? throw new ConfigurationErrorsException("A variável de amibente ENV não pode ser nula.");
-    
-    public static class TmdbApi
-    {
-        public static string NAME => "TmdbApi";
-        public static string LANGUAGE => "pt-BR";
-        public static string API_KEY => Environment.GetEnvironmentVariable("TMDB_API_KEY") ?? throw new ConfigurationErrorsException("A variável de amibente TMDB_API_KEY não pode ser nula.");
-        public static string BASE_URL => Environment.GetEnvironmentVariable("TMDB_API_BASE_URL") ?? throw new ConfigurationErrorsException("A variável de amibente TMDB_API_BASE_URL não pode ser nula.");
-        public static string AUTH_TOKEN => Environment.GetEnvironmentVariable("TMDB_API_AUTH_TOKEN") ?? throw new ConfigurationErrorsException("A variável de amibente TMDB_API_AUTH_TOKEN não pode ser nula.");
-    }
 }
+
