@@ -1,54 +1,66 @@
 using Cinema.Catalog.API.Filters;
 using Cinema.Catalog.Domain;
+using Cinema.Catalog.Domain.Shared;
 using Cinema.Catalog.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
-var builder = WebApplication.CreateBuilder(args);
+namespace Cinema.Catalog.API;
 
-// Add services to the container.
-
-builder.Services.AddControllers(options =>
+[ExcludeFromCodeCoverage]
+public partial class Program
 {
-    options.Filters.Add<ExceptionFilter>();
-})
-.AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-});
+    public static void Main(string[] args)
+    {
+        var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddRouting(options =>
-{
-    options.LowercaseUrls = true;
-    options.LowercaseQueryStrings = true;
-    options.AppendTrailingSlash = false;
-});
+        // Add services to the container.
 
-builder.Services.AddApiVersioning(options =>
-{
-    options.AssumeDefaultVersionWhenUnspecified = true;
-    options.DefaultApiVersion = new ApiVersion(1, 0);
-    options.ReportApiVersions = true;
-});
+        builder.Services.AddControllers(options =>
+        {
+            options.Filters.Add<ExceptionFilter>();
+        })
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+        });
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+        builder.Services.AddRouting(options =>
+        {
+            options.LowercaseUrls = true;
+            options.LowercaseQueryStrings = true;
+            options.AppendTrailingSlash = false;
+        });
 
-builder.Services.AddDomainServices();
-builder.Services.AddInfrastructureServices();
+        builder.Services.AddApiVersioning(options =>
+        {
+            options.AssumeDefaultVersionWhenUnspecified = true;
+            options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.ReportApiVersions = true;
+        });
 
-var app = builder.Build();
+        builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddSwaggerGen();
 
-// Configure the HTTP request pipeline.
+        builder.Services.ConfigureOptions(builder.Configuration);
+        builder.Services.AddDomainServices();
+        builder.Services.AddInfrastructureServices(builder.Configuration);
 
-app.UseAuthorization();
+        var app = builder.Build();
 
-app.MapControllers();
+        // Configure the HTTP request pipeline.
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    builder.Logging.AddConsole();
+        app.UseAuthorization();
+
+        app.MapControllers();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            builder.Logging.AddConsole();
+        }
+
+        app.Run();
+    }
 }
-
-app.Run();
