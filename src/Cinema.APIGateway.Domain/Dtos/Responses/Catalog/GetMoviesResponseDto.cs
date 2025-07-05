@@ -34,5 +34,5 @@ public record GetMoviesResponseDto
     /// Data de lancamento do filme.
     /// </summary> 
     [JsonProperty("dataLancamento")]
-    public DateTimeOffset PremiereYear { get; set; }
+    public DateTimeOffset? PremiereYear { get; set; }
 }

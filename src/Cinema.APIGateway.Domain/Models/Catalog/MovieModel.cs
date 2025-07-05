@@ -27,6 +27,6 @@ public class MovieModel
     /// <summary>
     /// Data de lançamento do filme.
     /// </summary>
-    public DateTimeOffset PremiereYear { get; set; }
+    public DateTimeOffset? PremiereYear { get; set; }
 }
 
