@@ -94,9 +94,9 @@ services:
       - RabbitMq__Password=apigateway_pass123
       - RabbitMq__QueueCreateEcommerceTicketName=cinema-ecommerce-criacao-ticket
       # EcommerceTicketApi
-      - EcommerceTicketApi__BaseUrl=http://cinema-ecommerce-ticket:5000/api/
+      - EcommerceTicketApi__BaseUrl=http://cinema-ecommerce-ticket-api:5000/api/
       # CatalogApi
-      - CatalogApi__BaseUrl=http://cinema-catalog:5000/api/
+      - CatalogApi__BaseUrl=http://cinema-catalog-api:5000/api/
       # Environment Variables
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5000
@@ -126,7 +126,7 @@ services:
       - MongoDb__DatabaseName=cinema_ecommerce_ticket
       - MongoDb__TicketsCollectionName=tickets
       # CatalogApi
-      - CatalogApi__BaseUrl=http://cinema-catalog:5000/api/
+      - CatalogApi__BaseUrl=http://cinema-catalog-api:5000/api/
       # Redis
       - Redis__ConnectionString=redis:6379,password=redispassword
       # Environment Variables
@@ -141,7 +141,7 @@ services:
     networks:
       - app_network
 
-  cinema-catalog:
+  cinema-catalog-api:
     build:
       context: .\Cinema.Catalog
       dockerfile: src\Cinema.Catalog.API\Dockerfile
