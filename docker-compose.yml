@@ -7,10 +7,10 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
-      RABBITMQ_DEFAULT_USER: username
-      RABBITMQ_DEFAULT_PASS: password
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin_secure_2025
     volumes:
-      - ./rabbitmq-init.sh:/docker-entrypoint-init.d/rabbitmq-init.sh
+      - ./rabbitmq-setup.sh:/docker-entrypoint-init.d/rabbitmq-setup.sh:ro
     networks:
       - app_network
     healthcheck:
@@ -27,13 +27,15 @@ services:
       - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: cinema_ecommerce_ticket
     volumes:
       - mongo_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - app_network
     healthcheck:
-      test: echo 'db.runCommand("ping").ok'
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
       timeout: 5s
       retries: 5
@@ -57,16 +59,20 @@ services:
     ports:
       - "5000:5000"
     environment:
+      # RabbitMq
+      - RabbitMq__Host=rabbitmq
+      - RabbitMq__Port=5672
+      - RabbitMq__Username=apigateway_user
+      - RabbitMq__Password=apigateway_secure_2025
+      - RabbitMq__QueueCreateEcommerceTicketName=cinema-ecommerce-criacao-ticket
+      # EcommerceTicketApi
+      - EcommerceTicketApi__BaseUrl=http://cinema-ecommerce-ticket:5000/api/
+      # CatalogApi
+      - CatalogApi__BaseUrl=http://cinema-catalog:5000/api/
+      # Environment Variables
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5000
       - ENV=dev
-      - RABBIMQ_HOST=rabbitmq
-      - RABBIMQ_PORT=5672
-      - RABBIMQ_USERNAME=username
-      - RABBIMQ_PASSWORD=password
-      - QUEUE_CREATE_ECOMMERCE_TICKET_NAME=cinema-ecommerce-criacao-ticket
-      - ECOMMERCE_TICKET_API_BASE_URL=http://cinema-ecommerce-ticket:5000/api/
-      - CATALOG_API_BASE_URL=http://cinema-catalog:5000/api/
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -80,18 +86,24 @@ services:
     ports:
       - "5001:5000"
     environment:
+      # RabbitMq
+      - RabbitMq__Host=rabbitmq
+      - RabbitMq__Port=5672
+      - RabbitMq__Username=ecommerce_user
+      - RabbitMq__Password=ecommerce_secure_2025
+      - RabbitMq__QueueCreateEcommerceTicketName=cinema-ecommerce-criacao-ticket
+      # MongoDb
+      - MongoDb__ConnectionString=mongodb://cinema_app_user:cinema_secure_db_2025@mongodb:27017/cinema_ecommerce_ticket?authSource=cinema_ecommerce_ticket&retryWrites=false
+      - MongoDb__DatabaseName=cinema_ecommerce_ticket
+      - MongoDb__TicketsCollectionName=tickets
+      # CatalogApi
+      - CatalogApi__BaseUrl=http://cinema-catalog:5000/api/
+      # Redis
+      - Redis__ConnectionString=redis:6379,password=MinhaSenhaRedis
+      # Environment Variables
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5000
       - ENV=dev
-      - RABBIMQ_HOST=rabbitmq
-      - RABBIMQ_PORT=5672
-      - RABBIMQ_USERNAME=username
-      - RABBIMQ_PASSWORD=password
-      - QUEUE_CREATE_ECOMMERCE_TICKET_NAME=cinema-ecommerce-criacao-ticket
-      - MONGODB_CONNECTION_STRING=mongodb://root:example@mongodb:27017/?retryWrites=false
-      - MONGODB_DATABASE_NAME=cinema_ecommerce_ticket
-      - MONGODB_TICKETS_COLLECTION_NAME=tickets
-      - CATALOG_API_BASE_URL=http://cinema-catalog:5000/api/
     depends_on:
       mongodb:
         condition: service_healthy
@@ -109,15 +121,16 @@ services:
     ports:
       - "5002:5000"
     environment:
+      # TmdbApi
+      - TmdbApi__BaseUrl=https://api.themoviedb.org/3/
+      - TmdbApi__ApiKey=1f54bd990f1cdfb230adb312546d765d
+      - TmdbApi__AuthToken=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZWQ5Y2E0NTUzZThiZmRmMjk5NjI1ZDI4ZjNlMGM0NCIsIm5iZiI6MTcyODQxODM3OS4zNzk5MjIsInN1YiI6IjY3MDU4Yjc1MDAwMDAwMDAwMDU4NTNiMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.p-MmF0K7-ku9kDlcyg4Ry8IeQMiufz5zTK-VT5wuOu8
+      # Environment Variables
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=5000
       - ENV=dev
-      - TMDB_API_BASE_URL=https://api.themoviedb.org/3/
-      - TMDB_API_KEY=1f54bd990f1cdfb230adb312546d765d
-      - TMDB_API_AUTH_TOKEN=eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZWQ5Y2E0NTUzZThiZmRmMjk5NjI1ZDI4ZjNlMGM0NCIsIm5iZiI6MTcyODQxODM3OS4zNzk5MjIsInN1YiI6IjY3MDU4Yjc1MDAwMDAwMDAwMDU4NTNiMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.p-MmF0K7-ku9kDlcyg4Ry8IeQMiufz5zTK-VT5wuOu8
     networks:
       - app_network
-
 
 volumes:
   mongo_data:
