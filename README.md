@@ -315,7 +315,26 @@ dotnet run --project src/{NomeDoProjeto}.API
 - **Validação**: Validação de domínio
 - **Mapeamento**: AutoMapper de domínio
 
-## 🐛 Troubleshooting
+## � Repositórios das APIs
+
+Este projeto é composto por três microserviços independentes, cada um com seu próprio repositório:
+
+### API Gateway
+- **Repositório**: [Cinema.APIGateway](https://github.com/MidiUP/Cinema.APIGateway)
+- **Descrição**: Ponto único de entrada para todos os serviços, responsável pelo roteamento e comunicação entre APIs
+- **Tecnologias**: ASP.NET Core, RabbitMQ
+
+### Catalog API
+- **Repositório**: [Cinema.Catalog](https://github.com/MidiUP/Cinema.Catalog)
+- **Descrição**: Microserviço responsável pelo catálogo de filmes e integração com TMDB API
+- **Tecnologias**: ASP.NET Core
+
+### E-commerce Ticket API
+- **Repositório**: [Cinema.EcommerceTicket](https://github.com/MidiUP/Cinema.EcommerceTicket)
+- **Descrição**: Microserviço responsável pelo gerenciamento de vendas e ingressos
+- **Tecnologias**: ASP.NET Core, MongoDB, Redis, RabbitMQ
+
+## �🐛 Troubleshooting
 
 ### Problemas Comuns
 
