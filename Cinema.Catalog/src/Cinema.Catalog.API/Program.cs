@@ -2,6 +2,7 @@ using Cinema.Catalog.API.Filters;
 using Cinema.Catalog.Domain;
 using Cinema.Catalog.Domain.Shared;
 using Cinema.Catalog.Infrastructure;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
 
@@ -46,7 +47,11 @@ public partial class Program
         builder.Services.AddDomainServices();
         builder.Services.AddInfrastructureServices(builder.Configuration);
 
+        builder.Services.AddHealthChecks();
+
         var app = builder.Build();
+
+        app.MapHealthChecks("/health");
 
         // Configure the HTTP request pipeline.
 
