@@ -1,0 +1,533 @@
+{
+	"info": {
+		"_postman_id": "c7a1605c-b8cb-4d58-9807-604bf934c491",
+		"name": "Cinema.Catalog.API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46528127",
+		"_collection_link": "https://mateusmendes-1253065.postman.co/workspace/Mateus-Mendes-'s-Workspace~66b0e2f3-9caa-401f-80ab-5b175504c300/collection/46528127-c7a1605c-b8cb-4d58-9807-604bf934c491?action=share&source=collection_link&creator=46528127"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "v1",
+					"item": [
+						{
+							"name": "movies",
+							"item": [
+								{
+									"name": "{id}",
+									"item": [
+										{
+											"name": "/api/v1/movies/:id",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/movies/:id",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"movies",
+														":id"
+													],
+													"variable": [
+														{
+															"key": "id",
+															"value": "97635313",
+															"description": "(Required) "
+														}
+													]
+												}
+											},
+											"response": [
+												{
+													"name": "OK",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/movies/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"movies",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "OK",
+													"code": 200,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "[\n  {\n    \"adult\": false,\n    \"backdropPath\": \"magna officia cupidatat\",\n    \"belongsToCollection\": {\n      \"nullable\": true\n    },\n    \"budget\": -98354981,\n    \"genres\": [\n      {\n        \"id\": -62695356,\n        \"name\": \"non elit\"\n      },\n      {\n        \"id\": 31860885,\n        \"name\": \"et ut consectetur laboris ut\"\n      }\n    ],\n    \"homepage\": \"nost\",\n    \"id\": 33348962,\n    \"imdbId\": \"esse ut\",\n    \"originCountry\": [\n      \"non fugiat commodo tempor\",\n      \"officia\"\n    ],\n    \"originalLanguage\": \"nostrud consequat et\",\n    \"originalTitle\": \"elit labore velit ex voluptate\",\n    \"overview\": \"enim exerci\",\n    \"popularity\": 47893646.43737203,\n    \"posterPath\": \"quis\",\n    \"productionCompanies\": [\n      {\n        \"id\": 21039830,\n        \"logoPath\": \"nulla dolore nisi do\",\n        \"name\": \"consequat mollit sit pariatur\",\n        \"originCountry\": \"in dolor culpa aliquip\"\n      },\n      {\n        \"id\": 64372459,\n        \"logoPath\": \"officia esse commodo enim\",\n        \"name\": \"aliqua et\",\n        \"originCountry\": \"sit enim anim\"\n      }\n    ],\n    \"productionCountries\": [\n      {\n        \"iso3166_1\": \"consectetur in\",\n        \"name\": \"commodo ea\"\n      },\n      {\n        \"iso3166_1\": \"amet nostrud\",\n        \"name\": \"ex est do nostrud\"\n      }\n    ],\n    \"releaseDate\": \"sunt aliquip\",\n    \"revenue\": -98095853,\n    \"runtime\": 32327177,\n    \"spokenLanguages\": [\n      {\n        \"englishName\": \"laborum dolor amet do\",\n        \"iso639_1\": \"velit occaecat\",\n        \"name\": \"magna occaecat amet eu enim\"\n      },\n      {\n        \"englishName\": \"ea occaecat dolor\",\n        \"iso639_1\": \"aute proident incididunt Lorem\",\n        \"name\": \"aute in\"\n      }\n    ],\n    \"status\": \"enim ex laboris\",\n    \"tagline\": \"ut reprehenderit mollit in\",\n    \"title\": \"dolore\",\n    \"video\": true,\n    \"voteAverage\": 58597770.65887353,\n    \"voteCount\": 71903379\n  },\n  {\n    \"adult\": false,\n    \"backdropPath\": \"et Ut\",\n    \"belongsToCollection\": {\n      \"nullable\": true\n    },\n    \"budget\": -91836034,\n    \"genres\": [\n      {\n        \"id\": -56250335,\n        \"name\": \"eu et amet\"\n      },\n      {\n        \"id\": 90914154,\n        \"name\": \"adipisicing et Excepteur\"\n      }\n    ],\n    \"homepage\": \"dolore eu proident anim\",\n    \"id\": -6901708,\n    \"imdbId\": \"labore do\",\n    \"originCountry\": [\n      \"id consequat ut qui\",\n      \"exercitation officia dolore nostrud\"\n    ],\n    \"originalLanguage\": \"id sed\",\n    \"originalTitle\": \"aliqua laborum velit in\",\n    \"overview\": \"in ad dolor\",\n    \"popularity\": 77838058.70979014,\n    \"posterPath\": \"ipsum cillum ea\",\n    \"productionCompanies\": [\n      {\n        \"id\": 11277925,\n        \"logoPath\": \"proident consequat voluptate\",\n        \"name\": \"nostr\",\n        \"originCountry\": \"laborum enim irure\"\n      },\n      {\n        \"id\": 85281445,\n        \"logoPath\": \"adipisicing aute incididun\",\n        \"name\": \"dolore ipsum cupidatat velit\",\n        \"originCountry\": \"sed\"\n      }\n    ],\n    \"productionCountries\": [\n      {\n        \"iso3166_1\": \"irure nulla laborum et\",\n        \"name\": \"inc\"\n      },\n      {\n        \"iso3166_1\": \"qui Excepteur ut ullamco\",\n        \"name\": \"velit\"\n      }\n    ],\n    \"releaseDate\": \"aute ut amet do\",\n    \"revenue\": 26755204,\n    \"runtime\": 94683977,\n    \"spokenLanguages\": [\n      {\n        \"englishName\": \"fugiat in dolore\",\n        \"iso639_1\": \"ut consequat do et\",\n        \"name\": \"in lab\"\n      },\n      {\n        \"englishName\": \"reprehenderit Excepteur ipsum nostrud\",\n        \"iso639_1\": \"aliquip laborum nostrud\",\n        \"name\": \"ut sint nisi\"\n      }\n    ],\n    \"status\": \"cupidatat\",\n    \"tagline\": \"commodo Excepteur\",\n    \"title\": \"ipsum fugiat occaecat adipisicing tempor\",\n    \"video\": false,\n    \"voteAverage\": -93173570.20407444,\n    \"voteCount\": 95022412\n  }\n]"
+												},
+												{
+													"name": "No Content",
+													"originalRequest": {
+														"method": "GET",
+														"header": [],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/movies/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"movies",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "No Content",
+													"code": 204,
+													"_postman_previewlanguage": "text",
+													"header": [],
+													"cookie": [],
+													"body": null
+												},
+												{
+													"name": "Bad Request",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/movies/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"movies",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Bad Request",
+													"code": 400,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"errors\": [\n    \"laborum quis elit\",\n    \"exercitation in\"\n  ],\n  \"message\": \"proident laborum adipisicing dolore\"\n}"
+												},
+												{
+													"name": "Request Timeout",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/movies/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"movies",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Request Timeout",
+													"code": 408,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"errors\": [\n    \"laborum quis elit\",\n    \"exercitation in\"\n  ],\n  \"message\": \"proident laborum adipisicing dolore\"\n}"
+												},
+												{
+													"name": "Internal Server Error",
+													"originalRequest": {
+														"method": "GET",
+														"header": [
+															{
+																"key": "Accept",
+																"value": "text/plain"
+															}
+														],
+														"url": {
+															"raw": "{{baseUrl}}/api/v1/movies/:id",
+															"host": [
+																"{{baseUrl}}"
+															],
+															"path": [
+																"api",
+																"v1",
+																"movies",
+																":id"
+															],
+															"variable": [
+																{
+																	"key": "id"
+																}
+															]
+														}
+													},
+													"status": "Internal Server Error",
+													"code": 500,
+													"_postman_previewlanguage": "json",
+													"header": [
+														{
+															"key": "Content-Type",
+															"value": "application/json"
+														}
+													],
+													"cookie": [],
+													"body": "{\n  \"errors\": [\n    \"laborum quis elit\",\n    \"exercitation in\"\n  ],\n  \"message\": \"proident laborum adipisicing dolore\"\n}"
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "/api/v1/movies",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/movies?TermSearch=sint&PremiereYear=97635313",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"movies"
+											],
+											"query": [
+												{
+													"key": "TermSearch",
+													"value": "sint",
+													"description": "(Required) "
+												},
+												{
+													"key": "PremiereYear",
+													"value": "97635313"
+												}
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/movies?TermSearch=sint&PremiereYear=97635313",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"movies"
+													],
+													"query": [
+														{
+															"key": "TermSearch",
+															"value": "sint",
+															"description": "(Required) "
+														},
+														{
+															"key": "PremiereYear",
+															"value": "97635313"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "[\n  {\n    \"id\": 50150477,\n    \"name\": \"ullamco reprehenderit sint\",\n    \"description\": \"magna et ad\",\n    \"premiereYear\": \"2002-05-18T04:52:17.128Z\"\n  },\n  {\n    \"id\": 60508872,\n    \"name\": \"ex pariatur nisi\",\n    \"description\": \"nostrud \",\n    \"premiereYear\": \"2001-12-26T21:12:04.189Z\"\n  }\n]"
+										},
+										{
+											"name": "No Content",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/movies?TermSearch=sint&PremiereYear=97635313",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"movies"
+													],
+													"query": [
+														{
+															"key": "TermSearch",
+															"value": "sint",
+															"description": "(Required) "
+														},
+														{
+															"key": "PremiereYear",
+															"value": "97635313"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": null
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/movies?TermSearch=sint&PremiereYear=97635313",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"movies"
+													],
+													"query": [
+														{
+															"key": "TermSearch",
+															"value": "sint",
+															"description": "(Required) "
+														},
+														{
+															"key": "PremiereYear",
+															"value": "97635313"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"errors\": [\n    \"laborum quis elit\",\n    \"exercitation in\"\n  ],\n  \"message\": \"proident laborum adipisicing dolore\"\n}"
+										},
+										{
+											"name": "Request Timeout",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/movies?TermSearch=sint&PremiereYear=97635313",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"movies"
+													],
+													"query": [
+														{
+															"key": "TermSearch",
+															"value": "sint",
+															"description": "(Required) "
+														},
+														{
+															"key": "PremiereYear",
+															"value": "97635313"
+														}
+													]
+												}
+											},
+											"status": "Request Timeout",
+											"code": 408,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"errors\": [\n    \"laborum quis elit\",\n    \"exercitation in\"\n  ],\n  \"message\": \"proident laborum adipisicing dolore\"\n}"
+										},
+										{
+											"name": "Internal Server Error",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"url": {
+													"raw": "{{baseUrl}}/api/v1/movies?TermSearch=sint&PremiereYear=97635313",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"v1",
+														"movies"
+													],
+													"query": [
+														{
+															"key": "TermSearch",
+															"value": "sint",
+															"description": "(Required) "
+														},
+														{
+															"key": "PremiereYear",
+															"value": "97635313"
+														}
+													]
+												}
+											},
+											"status": "Internal Server Error",
+											"code": 500,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"errors\": [\n    \"laborum quis elit\",\n    \"exercitation in\"\n  ],\n  \"message\": \"proident laborum adipisicing dolore\"\n}"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
