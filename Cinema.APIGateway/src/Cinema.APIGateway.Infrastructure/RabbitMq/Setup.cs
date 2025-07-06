@@ -40,21 +40,21 @@ public static class Setup
         services.AddProducer<EcommerceCreateTicketEvent>(queueCreateEcommerceTicketName);
 
         services.AddHealthChecks()
-        .AddRabbitMQ(async s =>
-        {
-            var factory = new ConnectionFactory
+            .AddRabbitMQ(async s =>
             {
-                HostName = rabbitMqOptions.Host,
-                UserName = rabbitMqOptions.Username,
-                Password = rabbitMqOptions.Password,
-                Port = int.TryParse(rabbitMqOptions.Port, out var port) ? port : AmqpTcpEndpoint.UseDefaultPort
-            };
-            return await factory.CreateConnectionAsync();
-        },
-        name: "RabbitMQ",
-        failureStatus: HealthStatus.Unhealthy,
-        tags: new[] { "health" }
-        );
+                var factory = new ConnectionFactory
+                {
+                    HostName = rabbitMqOptions.Host,
+                    UserName = rabbitMqOptions.Username,
+                    Password = rabbitMqOptions.Password,
+                    Port = int.TryParse(rabbitMqOptions.Port, out var port) ? port : AmqpTcpEndpoint.UseDefaultPort
+                };
+                return await factory.CreateConnectionAsync();
+            },
+            name: "RabbitMQ",
+            failureStatus: HealthStatus.Unhealthy,
+            tags: new[] { "health" }
+            );
     }
 
     private static void AddProducer<T>(this IServiceCollection services, string queue) where T : Events.Event
