@@ -6,6 +6,7 @@ using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using RabbitMQ.Client;
 
 namespace Cinema.APIGateway.Infrastructure.RabbitMq;
 
@@ -14,8 +15,8 @@ public static class Setup
     public static void AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
     {
         var rabbitMqOptions = configuration.GetSection("RabbitMq").Get<RabbitMqOptions>()!;
-        var queueCreateEcommerceTicketName = GetNameQueue(Constants.ENV, rabbitMqOptions.QueueCreateEcommerceTicketName);
-        
+        var queueCreateEcommerceTicketName = GetNameQueue(Domain.Shared.Constants.ENV, rabbitMqOptions.QueueCreateEcommerceTicketName);
+
         services.AddMassTransit(x =>
         {
             x.ConfigureHealthCheckOptions(options =>
@@ -37,6 +38,24 @@ public static class Setup
 
         // Configura o producer para a fila desejada
         services.AddProducer<EcommerceCreateTicketEvent>(queueCreateEcommerceTicketName);
+
+        services.AddHealthChecks()
+            .AddRabbitMQ(async s =>
+            {
+                var factory = new ConnectionFactory
+                {
+                    HostName = rabbitMqOptions.Host,
+                    UserName = rabbitMqOptions.Username,
+                    Password = rabbitMqOptions.Password,
+                    Port = int.TryParse(rabbitMqOptions.Port, out var port) ? port : AmqpTcpEndpoint.UseDefaultPort
+                };
+                return await factory.CreateConnectionAsync();
+            },
+            name: "RabbitMQ",
+            failureStatus: HealthStatus.Unhealthy,
+            tags: new[] { "health" },
+            timeout: TimeSpan.FromSeconds(2)
+            );
     }
 
     private static void AddProducer<T>(this IServiceCollection services, string queue) where T : Events.Event

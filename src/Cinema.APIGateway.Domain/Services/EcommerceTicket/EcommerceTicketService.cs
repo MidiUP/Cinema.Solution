@@ -21,7 +21,7 @@ public class EcommerceTicketService(ITopicProducer<EcommerceCreateTicketEvent> t
     private readonly ITopicProducer<EcommerceCreateTicketEvent> _topicProducer = topicProducer;
     private readonly IEcommerceTicketApiFacade _ecommerceTicketApiFacade = ecommerceTicketHttpAdapter;
 
-    private readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(30);
+    private readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(15);
 
     /// <summary>
     /// Adiciona um novo check-in de ingresso na fila para processamento.
