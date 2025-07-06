@@ -17,7 +17,7 @@ public class MovieService(ITmdbApiFacade tmdbApiFacade) : IMovieService
 {
     private readonly ITmdbApiFacade _tmdbApiFacade = tmdbApiFacade;
 
-    private readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(30);
+    private readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(15);
 
     /// <summary>
     /// Obtém os detalhes completos de um filme a partir do identificador do TMDb.
