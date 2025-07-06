@@ -223,27 +223,23 @@ TmdbApi__ApiKey=1f54bd990f1cdfb230adb312546d765d
 
 ### API Gateway (http://localhost:5000)
 ```
-GET    /api/health                   # Health check
-POST   /api/gateway/tickets          # Criar ticket via gateway
-GET    /api/gateway/movies           # Buscar filmes via gateway
+GET    /api/health                                   # Health check
+GET    /api/v1/catalog/movies                        # Buscar filmes via gateway
+POST   /api/v1/ecommerceticket/check-in              # Criar ticket via gateway
+GET    /api/v1/ecommerceticket/tickets/{customerId}  # Buscar tickets de um cliente via gateway
 ```
 
 ### Catalog API (http://localhost:5002)
 ```
 GET    /api/health                   # Health check
-GET    /api/movies                   # Listar filmes
-GET    /api/movies/{id}              # Detalhes do filme
-GET    /api/movies/search?q={query}  # Buscar filmes
+GET    /api/v1/movies                   # Listar filmes
+GET    /api/v1/movies/{id}              # Detalhes do filme
 ```
 
 ### E-commerce Ticket API (http://localhost:5001)
 ```
 GET    /api/health                   # Health check
-GET    /api/tickets                  # Listar ingressos
-POST   /api/tickets                  # Criar ingresso
-GET    /api/tickets/{id}             # Detalhes do ingresso
-PUT    /api/tickets/{id}             # Atualizar ingresso
-DELETE /api/tickets/{id}             # Cancelar ingresso
+GET    /api/v1/tickets{customerId}   # Buscar tickets de um cliente
 ```
 
 ## 📊 Monitoramento
@@ -314,10 +310,10 @@ dotnet run --project src/{NomeDoProjeto}.API
 
 ### Padrões de Código
 - **Arquitetura**: Clean Architecture
-- **Padrões**: Repository Pattern, DDD, Facade, Adapter
+- **Padrões**: Repository Pattern, DDD, SOLID, Facade, Adapter, etc...
 - **Logging**: Structured logging com Serilog
-- **Validação**: FluentValidation
-- **Mapeamento**: AutoMapper
+- **Validação**: Validação de domínio
+- **Mapeamento**: AutoMapper de domínio
 
 ## 🐛 Troubleshooting
 
