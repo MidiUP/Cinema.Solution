@@ -15,7 +15,7 @@ public class CatalogService(ICatalogApiFacade catalogApiFacade) : ICatalogServic
 {
     private readonly ICatalogApiFacade _catalogApiFacade = catalogApiFacade;
 
-    private readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(30);
+    private readonly TimeSpan DEFAULT_TIMEOUT = TimeSpan.FromSeconds(15);
 
     /// <summary>
     /// Pesquisa filmes no catálogo de acordo com os critérios informados.
