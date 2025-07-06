@@ -209,6 +209,254 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "health",
+			"item": [
+				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/catalog/movies?TermSearch=esse in&PremiereYear=67295195",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"catalog",
+										"movies"
+									],
+									"query": [
+										{
+											"key": "TermSearch",
+											"value": "esse in",
+											"description": "(Required) "
+										},
+										{
+											"key": "PremiereYear",
+											"value": "67295195"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"id\": 33764488,\n  \"nome\": \"Duis sunt sint\",\n  \"descricao\": \"et eu magna do\",\n  \"dataLancamento\": \"2017-01-04T13:27:35.967Z\"\n}"
+						},
+						{
+							"name": "No Content",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/catalog/movies?TermSearch=esse in&PremiereYear=67295195",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"catalog",
+										"movies"
+									],
+									"query": [
+										{
+											"key": "TermSearch",
+											"value": "esse in",
+											"description": "(Required) "
+										},
+										{
+											"key": "PremiereYear",
+											"value": "67295195"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/catalog/movies?TermSearch=esse in&PremiereYear=67295195",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"catalog",
+										"movies"
+									],
+									"query": [
+										{
+											"key": "TermSearch",
+											"value": "esse in",
+											"description": "(Required) "
+										},
+										{
+											"key": "PremiereYear",
+											"value": "67295195"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"erros\": [\n    \"adipisicing laboris\",\n    \"amet mollit\"\n  ],\n  \"mensagem\": \"anim exercitation\"\n}"
+						},
+						{
+							"name": "Request Timeout",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/catalog/movies?TermSearch=esse in&PremiereYear=67295195",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"catalog",
+										"movies"
+									],
+									"query": [
+										{
+											"key": "TermSearch",
+											"value": "esse in",
+											"description": "(Required) "
+										},
+										{
+											"key": "PremiereYear",
+											"value": "67295195"
+										}
+									]
+								}
+							},
+							"status": "Request Timeout",
+							"code": 408,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"erros\": [\n    \"adipisicing laboris\",\n    \"amet mollit\"\n  ],\n  \"mensagem\": \"anim exercitation\"\n}"
+						},
+						{
+							"name": "Internal Server Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/catalog/movies?TermSearch=esse in&PremiereYear=67295195",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"catalog",
+										"movies"
+									],
+									"query": [
+										{
+											"key": "TermSearch",
+											"value": "esse in",
+											"description": "(Required) "
+										},
+										{
+											"key": "PremiereYear",
+											"value": "67295195"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"erros\": [\n    \"adipisicing laboris\",\n    \"amet mollit\"\n  ],\n  \"mensagem\": \"anim exercitation\"\n}"
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [
