@@ -53,7 +53,8 @@ public static class Setup
             },
             name: "RabbitMQ",
             failureStatus: HealthStatus.Unhealthy,
-            tags: new[] { "health" }
+            tags: new[] { "health" },
+            timeout: TimeSpan.FromSeconds(2)
             );
     }
 
