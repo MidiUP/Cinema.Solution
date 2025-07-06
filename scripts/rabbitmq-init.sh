@@ -12,7 +12,20 @@ until curl -f -s -u $RABBITMQ_ADMIN_USER:$RABBITMQ_ADMIN_PASS http://$RABBITMQ_H
     sleep 3
 done
 
-echo "RabbitMQ Management API disponível, criando usuários..."
+echo "RabbitMQ Management API disponível, habilitando plugins..."
+
+# Habilitar plugins do RabbitMQ
+echo "Habilitando plugin rabbitmq_shovel..."
+curl -f -u $RABBITMQ_ADMIN_USER:$RABBITMQ_ADMIN_PASS \
+  -X PUT \
+  http://$RABBITMQ_HOST:15672/api/plugins/rabbitmq_shovel
+
+echo "Habilitando plugin rabbitmq_shovel_management..."
+curl -f -u $RABBITMQ_ADMIN_USER:$RABBITMQ_ADMIN_PASS \
+  -X PUT \
+  http://$RABBITMQ_HOST:15672/api/plugins/rabbitmq_shovel_management
+
+echo "Plugins habilitados com sucesso, criando usuários..."
 
 # Criar usuário apigateway_user
 echo "Criando usuário apigateway_user..."
@@ -55,5 +68,6 @@ curl -f -u $RABBITMQ_ADMIN_USER:$RABBITMQ_ADMIN_PASS \
   http://$RABBITMQ_HOST:15672/api/queues/%2F/cinema-ecommerce-criacao-ticket
 
 echo "Configuração do RabbitMQ concluída com sucesso!"
+echo "Plugins habilitados: rabbitmq_shovel, rabbitmq_shovel_management"
 echo "Usuários criados: apigateway_user, ecommerce_user"
 echo "Fila criada: cinema-ecommerce-criacao-ticket"
